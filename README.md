@@ -21,3 +21,5 @@ http://pdfmake.org/playground.html
     - tab2: 
     - tab3:
     
+* Estilos
+    - global: 
