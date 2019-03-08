@@ -9,6 +9,12 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+import { File } from '@ionic-native/File/ngx';
+import { FileOpener } from '@ionic-native/file-opener/ngx';
+import { FileTransfer } from '@ionic-native/file-transfer/ngx';
+import { SQLite } from '@ionic-native/sqlite/ngx';
+import {SQLiteServiceService} from '../services/sqlite-service.service';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -16,7 +22,12 @@ import { AppComponent } from './app.component';
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    File,
+    FileOpener,
+    FileTransfer,
+    SQLite,
+    SQLiteServiceService
   ],
   bootstrap: [AppComponent]
 })

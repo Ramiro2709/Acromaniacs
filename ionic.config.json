@@ -1,5 +1,7 @@
 {
   "name": "Comprobante_pagos",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
