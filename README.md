@@ -22,4 +22,4 @@ http://pdfmake.org/playground.html
     - tab3:
     
 * Estilos
-    - global: 
+    - global: src/global.scss
