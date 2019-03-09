@@ -1,2 +1,3 @@
+- Insert en base desde altaDatos.php, comprobar que datos esten bien
 
-
+- Cambiar campo string "MesAbonado" a int de meses

@@ -9,8 +9,7 @@ import { Platform } from '@ionic/angular';
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
-//Genera PDF
-//TODO: adaptarlo
+//Ejemplo generacion PDF
 
 @Component({
   selector: 'app-tab2',

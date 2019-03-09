@@ -24,10 +24,11 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
 
-      this.createDatabase();
+      //this.createDatabase();
     });
   }
 
+  /*
   private createDatabase(){
     this.sqlite.create({
       name: 'contactos_local.db',
@@ -35,15 +36,16 @@ export class AppComponent {
     })
     .then((db : SQLiteObject) => {
       console.log("Base de datos: "+db);
-      /*
+      
       this.tasksService.setDatabase(db);
       //this.tasksService.prueba_borrartabla(); ////  Borra contenido de tabla contactos_local
       this.tasksService.createTable_contactos();
       return this.tasksService.createTable_numeros();
-      */
+      
     })
     .catch(error =>{
       console.error(error);
     });
   }
+  */
 }

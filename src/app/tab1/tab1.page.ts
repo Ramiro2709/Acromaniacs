@@ -8,6 +8,8 @@ import { FileOpener } from '@ionic-native/file-opener/ngx';
 
 import { Platform } from '@ionic/angular';
 
+import {MySQLService} from '../../services/my-sql.service';
+
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
@@ -18,16 +20,16 @@ export class Tab1Page {
   
   //Datos del formulario
   form = {
-    date: '',
-    name: '',
-    mes: '',
-    recargo: '',
-    monto: ''
+    date: null,
+    name: null,
+    mes: null,
+    recargo: null,
+    monto: null
   }
   today = new Date();
   pdfObj = null;
  
-  constructor(private plt: Platform, private file: File, private fileOpener: FileOpener) {
+  constructor(private plt: Platform, private file: File, private fileOpener: FileOpener, private MySql: MySQLService) {
     this.GetDate();
     //console.log("asd")
   }
@@ -51,7 +53,16 @@ export class Tab1Page {
     //console.log(this.form.date);
   }
 
+  subirDatos(){
+    var recargo = this.MontoBool();
+    //TODO: obtener id de alumno
+    this.MySql.enviarBase(1,this.form.date, this.form.mes,recargo,this.form.monto);
+    this.createPdf(); 
+  }
+
+
   // Crea el PDF
+  //TODO: agregar esta funcion a un servicio, donde se manden los datos como parametros
   createPdf() {
 
     if (!this.form.monto){ 
@@ -188,6 +199,15 @@ export class Tab1Page {
       });
     } else { //Si es en browser
       this.pdfObj.download();
+    }
+  }
+
+  MontoBool(){
+    var recargo : any;
+    if (this.form.recargo == "Si"){
+      return true;
+    } else if (this.form.recargo == "No"){
+      return false;
     }
   }
 }

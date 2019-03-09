@@ -15,10 +15,12 @@ import { FileTransfer } from '@ionic-native/file-transfer/ngx';
 import { SQLite } from '@ionic-native/sqlite/ngx';
 import {SQLiteServiceService} from '../services/sqlite-service.service';
 
+import {HttpClientModule} from '@angular/common/http';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule],
   providers: [
     StatusBar,
     SplashScreen,
