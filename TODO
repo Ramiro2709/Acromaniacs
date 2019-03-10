@@ -1,3 +1,12 @@
-- Insert en base desde altaDatos.php, comprobar que datos esten bien
+- ----Insert en base desde altaDatos.php----
+
+- --------Evitar que se ingrese mas de 1 simbolo en input monto--------
+
+- comprobar que datos esten bien----------------------
+
+- Al hacer click que solo se inserte en base, salga cartel de que se inserto exitosamente, despues de opcion de generar pdf
+
+- Seleccionar id de alumno
 
 - Cambiar campo string "MesAbonado" a int de meses
+

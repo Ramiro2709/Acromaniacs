@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
+import { AlertController } from '@ionic/angular';
 
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
@@ -9,6 +10,7 @@ import { FileOpener } from '@ionic-native/file-opener/ngx';
 import { Platform } from '@ionic/angular';
 
 import {MySQLService} from '../../services/my-sql.service';
+import { DebugContext } from '@angular/core/src/view';
 
 @Component({
   selector: 'app-tab1',
@@ -28,8 +30,9 @@ export class Tab1Page {
   }
   today = new Date();
   pdfObj = null;
+  recargo;
  
-  constructor(private plt: Platform, private file: File, private fileOpener: FileOpener, private MySql: MySQLService) {
+  constructor(private plt: Platform, private file: File, private fileOpener: FileOpener, private MySql: MySQLService, private changeDet: ChangeDetectorRef, private alertController: AlertController) {
     this.GetDate();
     //console.log("asd")
   }
@@ -44,19 +47,24 @@ export class Tab1Page {
     var mmVar:any;
     if(dd<10) {
         ddVar = '0'+ dd.toString();
-    } 
+    } else{
+      ddVar = dd;
+    }
 
     if(mm<10) {
         mmVar = '0'+mm.toString();
-    } 
+    } else {
+      mmVar = mm;
+    }
     this.form.date = yyyy + "-" + mmVar + "-" +ddVar;
-    //console.log(this.form.date);
+    console.log(this.form.date);
   }
 
   subirDatos(){
-    var recargo = this.MontoBool();
+    this.RecargoBool();
     //TODO: obtener id de alumno
-    this.MySql.enviarBase(1,this.form.date, this.form.mes,recargo,this.form.monto);
+    this.ValidarYEnviar();
+    //this.MySql.enviarBase(1,this.form.date, this.form.mes,this.recargo,this.form.monto);
     this.createPdf(); 
   }
 
@@ -202,13 +210,96 @@ export class Tab1Page {
     }
   }
 
-  MontoBool(){
-    var recargo : any;
+  RecargoBool(){
+    //console.log(this.form.recargo);
     if (this.form.recargo == "Si"){
-      return true;
+      this.recargo = true;
     } else if (this.form.recargo == "No"){
-      return false;
+      this.recargo = false;
     }
+    //console.log(this.recargo);
+  }
+
+  change(value){
+    /*
+    //manually launch change detection
+    this.changeDet.detectChanges();
+    //console.log(value);
+    var valueString;
+    valueString = value.toString();
+    //valueString = valueString + ' ';
+    var lastChar = valueString.substring(valueString.length - 1);
+    //console.log(lastChar);
+    //lastChar = lastChar.substring(lastChar.length() - 1); 
+    //console.log(lastChar);
+
+    if(value > 1000000){
+      
+      valueString = valueString.substring(0,7);
+      this.form.monto = parseInt(valueString);
+    }
+
+    //this.form.monto = value.length > 8 ? value.substring(0,8) : value;
+    */
+  }
+
+  ValidarYEnviar(){
+    if (!(this.form.mes == "Enero" || this.form.mes == "Febrero" || this.form.mes == "Marzo" || this.form.mes == "Abril" || this.form.mes == "Mayo" || this.form.mes == "Junio" || this.form.mes == "Julio" || this.form.mes == "Agosto" || this.form.mes == "Septiembre" || this.form.mes == "Octubre" || this.form.mes == "Noviembre" || this.form.mes == "Diciembre")){
+      //console.log("Mes Incorrecto");
+      var mesCorrecto = false;
+    } else {
+      var mesCorrecto = true;
+    }
+
+    if (!(this.form.recargo == "No" || this.form.recargo == "Si" || this.form.recargo == "NO" || this.form.recargo == "SI")){
+      var recargoCorrecto = false;
+    } else {
+      var recargoCorrecto = true;
+    }
+
+    if(this.form.monto > 1000000 || this.form.monto == null){
+      //console.log("Monto Incorrecto, ");
+      var montoCorrecto = false;
+    } else {
+      var montoCorrecto = true;
+    }
+
+    if(this.form.date == ""){
+      //console.log("Fecha incorrecta");
+      var fechaCorrecta = false;
+    } else {
+      var fechaCorrecta = true;
+    }
+
+    if (montoCorrecto && recargoCorrecto && mesCorrecto && fechaCorrecta){
+      this.MySql.enviarBase(1,this.form.date, this.form.mes,this.recargo,this.form.monto);
+    } else{
+      console.log("Error");
+      this.ShowError(mesCorrecto, recargoCorrecto, montoCorrecto, fechaCorrecta);
+    }
+  }
+
+  async ShowError(mesCorrecto, recargoCorrecto, montoCorrecto, fechaCorrecta){
+    var errorMesagge = "";
+    if (!fechaCorrecta){
+      errorMesagge += 'Fecha incorrecta <br/>';
+    }
+    if (!mesCorrecto){
+      errorMesagge += 'Mes incorrecto <br/>';
+    }
+    if (!recargoCorrecto){
+      errorMesagge += 'Recargo incorrecto <br/>';
+    }
+    if (!montoCorrecto){
+      errorMesagge += "Monto incorrecto \n";
+    }
+
+    const alert = await this.alertController.create({
+      header: 'Error',
+      message: errorMesagge,
+      buttons: ['OK']
+    });
+    await alert.present();
   }
 }
 

@@ -22,7 +22,7 @@ export class MySQLService {
   }
 
   enviarBase(IdAlumno: number, Fecha: Date, MesAbonado: string, Recargo: boolean, Monto: number){
-
+    //console.log(Recargo);
     var datosAlta = JSON.stringify({
       "IdAlumno": IdAlumno,     //Int
       "Fecha": Fecha,           //Date

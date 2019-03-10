@@ -24,7 +24,7 @@
 
         <ion-item class="input_Ion-item">
             <ion-card-subtitle class="nombre_campo">Mes Abonado: </ion-card-subtitle>
-          <input class="form_input , list" list="meses"  [(ngModel)]="form.mes" name="mes">
+          <input class="form_input , list" list="meses"  [(ngModel)]="form.mes" name="mes" maxlength="12">
           <datalist id="meses">
             <option value="Enero">
             <option value="Febrero">
@@ -54,7 +54,7 @@
 
         <ion-item class="input_Ion-item">
             <ion-card-subtitle class="nombre_campo">Monto: </ion-card-subtitle>
-            $<ion-input class="form_input" type="number" [(ngModel)]="form.monto" name="monto"></ion-input>
+            $<ion-input class="form_input"  type="number" min="2" max="9" [(ngModel)]="form.monto" name="monto" maxlength="9" clearInput (ngModelChange)="change($event)"></ion-input>
         </ion-item>
 
         <button ion-button full (click)="subirDatos()" class="button" text-center margin>Generar PDF</button>
