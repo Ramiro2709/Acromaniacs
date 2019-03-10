@@ -3,13 +3,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 
+import {AlertService} from './alert.service';
+
 @Injectable({
   providedIn: 'root'
 })
 export class MySQLService {
   ipCarpeta : string = "http://localhost/acromaniacs/";
 
-  constructor(public http: HttpClient) { 
+  constructor(public http: HttpClient, private alertService: AlertService) { 
 
     //Para que ande el post
     const httpOptions = { 
@@ -36,10 +38,13 @@ export class MySQLService {
     .subscribe((data : any) =>
     {
       //TODO: Mensaje de carga exitosa
+      //console.log("Llamada AltaExitosa");
+      this.alertService.AltaExitosa();
     },
     (error : any) =>
     {
-      //this.provider.error_conexion(); //TODO: Hacer error de conexion
+      //console.log("Error POST");
+      this.alertService.AltaError();
     });
 
   }

@@ -10,6 +10,8 @@ import { FileOpener } from '@ionic-native/file-opener/ngx';
 import { Platform } from '@ionic/angular';
 
 import {MySQLService} from '../../services/my-sql.service';
+import {AlertService} from '../../services/alert.service';
+
 import { DebugContext } from '@angular/core/src/view';
 
 @Component({
@@ -32,7 +34,7 @@ export class Tab1Page {
   pdfObj = null;
   recargo;
  
-  constructor(private plt: Platform, private file: File, private fileOpener: FileOpener, private MySql: MySQLService, private changeDet: ChangeDetectorRef, private alertController: AlertController) {
+  constructor(private plt: Platform, private file: File, private fileOpener: FileOpener, private MySql: MySQLService, private changeDet: ChangeDetectorRef, private alertController: AlertController, private alertService: AlertService) {
     this.GetDate();
     //console.log("asd")
   }
@@ -65,7 +67,7 @@ export class Tab1Page {
     //TODO: obtener id de alumno
     this.ValidarYEnviar();
     //this.MySql.enviarBase(1,this.form.date, this.form.mes,this.recargo,this.form.monto);
-    this.createPdf(); 
+    //this.createPdf(); 
   }
 
 
@@ -275,31 +277,10 @@ export class Tab1Page {
       this.MySql.enviarBase(1,this.form.date, this.form.mes,this.recargo,this.form.monto);
     } else{
       console.log("Error");
-      this.ShowError(mesCorrecto, recargoCorrecto, montoCorrecto, fechaCorrecta);
+      this.alertService.ShowError(mesCorrecto, recargoCorrecto, montoCorrecto, fechaCorrecta);
     }
   }
 
-  async ShowError(mesCorrecto, recargoCorrecto, montoCorrecto, fechaCorrecta){
-    var errorMesagge = "";
-    if (!fechaCorrecta){
-      errorMesagge += 'Fecha incorrecta <br/>';
-    }
-    if (!mesCorrecto){
-      errorMesagge += 'Mes incorrecto <br/>';
-    }
-    if (!recargoCorrecto){
-      errorMesagge += 'Recargo incorrecto <br/>';
-    }
-    if (!montoCorrecto){
-      errorMesagge += "Monto incorrecto \n";
-    }
-
-    const alert = await this.alertController.create({
-      header: 'Error',
-      message: errorMesagge,
-      buttons: ['OK']
-    });
-    await alert.present();
-  }
+  
 }
 
