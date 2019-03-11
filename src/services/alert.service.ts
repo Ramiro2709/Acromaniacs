@@ -1,13 +1,17 @@
-import { Injectable } from '@angular/core';
+import { Injectable,Injector } from '@angular/core';
 
 import { AlertController } from '@ionic/angular';
+
+import {PDFMakerService} from './pdfmaker.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AlertService {
-
-  constructor(private alertController: AlertController) { }
+  pDFMakerService : any;
+  constructor(private alertController: AlertController, public injector: Injector) { 
+    this.pDFMakerService = injector.get(PDFMakerService);
+  }
 
   //Muestra error cuando algun input es incorrecto
   async ShowError(mesCorrecto, recargoCorrecto, montoCorrecto, fechaCorrecta){
@@ -33,22 +37,38 @@ export class AlertService {
     await alert.present();
   }
 
-  async AltaExitosa(){
+  async AltaExitosa(IdAlumno: number, Fecha: Date, MesAbonado: string, Recargo: boolean, Monto: number){
     //console.log("AltaExitosa");
     const alert = await this.alertController.create({
       header: 'Exito',
       message: 'Datos cargados exitosamente',
-      buttons: ['OK']
+      buttons: [
+        'OK',
+        {
+          text: 'Generar PDF',
+          handler: () => {
+            this.pDFMakerService.createPdf(IdAlumno, Fecha, MesAbonado, Recargo, Monto);
+          }
+        }
+      ]
     });
     await alert.present();
   }
 
-  async AltaError(){
+  async AltaError(IdAlumno: number, Fecha: Date, MesAbonado: string, Recargo: boolean, Monto: number){
     //console.log("AltaError");
     const alert = await this.alertController.create({
       header: 'Error',
       message: 'Error al cargar datos. No hay conexion con el servidor',
-      buttons: ['OK']
+      buttons: [
+        'OK',
+        {
+          text: 'Generar PDF',
+          handler: () => {
+            this.pDFMakerService.createPdf(IdAlumno, Fecha, MesAbonado, Recargo, Monto);
+          }
+        }
+      ]
     });
     await alert.present();
   }
