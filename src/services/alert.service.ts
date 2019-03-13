@@ -1,6 +1,7 @@
 import { Injectable,Injector } from '@angular/core';
 
-import { AlertController } from '@ionic/angular';
+import { AlertController,LoadingController} from '@ionic/angular';
+
 
 import {PDFMakerService} from './pdfmaker.service';
 
@@ -9,7 +10,7 @@ import {PDFMakerService} from './pdfmaker.service';
 })
 export class AlertService {
   pDFMakerService : any;
-  constructor(private alertController: AlertController, public injector: Injector) { 
+  constructor(private alertController: AlertController, public injector: Injector, public loadingCtrl:LoadingController) { 
     this.pDFMakerService = injector.get(PDFMakerService);
   }
 
@@ -71,6 +72,29 @@ export class AlertService {
       ]
     });
     await alert.present();
+  }
+
+  isLoading = false;
+
+  async present() {
+    this.isLoading = true; //Asigna bool de que empezo a cargar
+    return await this.loadingCtrl.create({ //(con await) crea loading
+      duration: 5000,
+    }).then(a => {
+      a.present().then(() => { //Lo presenta, generalmente tarda
+        console.log('presented');
+        if (!this.isLoading) { //Si dismiss() ya fue llamado, (es mas rapido que present())
+          a.dismiss().then(() => console.log('abort presenting')); //dismiss loading
+        }
+      });
+    });
+  }
+
+  async dismiss() {
+    this.isLoading = false; //Asigna bool false, por si es llamado antes que el present, este se aborte
+    return await this.loadingCtrl.dismiss().then(() => 
+    console.log('dismissed')
+    );
   }
 
 

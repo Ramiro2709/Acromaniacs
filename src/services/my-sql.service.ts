@@ -10,7 +10,8 @@ import {AlertService} from './alert.service';
 
 })
 export class MySQLService {
-  ipCarpeta : string = "http://localhost/acromaniacs/";
+  ipCarpeta : string = "http://localhost/acromaniacs/"; //Direccion local
+  //ipCarpeta : string = "http://192.168.0.102/acromaniacs/"; //WIFI local
   datosAlta;
   alertService : any;
 
@@ -37,17 +38,23 @@ export class MySQLService {
       "Monto" : Monto           //Int
     });
     var ipAltaDatos = this.ipCarpeta + "AltaDatos.php";
-
+    
+    //this.alertService.ShowLoader();
+    this.alertService.present();
     this.http.post<string>(ipAltaDatos,this.datosAlta) //TODO: Hacer php que carge datos
     .subscribe((data : any) =>
     {
       //TODO: Mensaje de carga exitosa
-      //console.log("Llamada AltaExitosa");
+      //console.log("Subscribe Post");
+      //this.alertService.DismissLoading();
+      this.alertService.dismiss();
       this.alertService.AltaExitosa(IdAlumno, Fecha, MesAbonado, Recargo, Monto);
     },
     (error : any) =>
     {
       //console.log("Error POST");
+      //this.alertService.DismissLoading();
+      this.alertService.dismiss();
       this.alertService.AltaError(IdAlumno, Fecha, MesAbonado, Recargo, Monto);
     });
   }

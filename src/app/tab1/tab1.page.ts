@@ -18,6 +18,15 @@ import {AlertService} from '../../services/alert.service';
 
 export class Tab1Page {
   
+  /*
+  //ion select options
+  customPopoverOptions: any = {
+    header: 'Hair Color',
+    subHeader: 'Select your hair color',
+    message: 'Only select your dominant hair color'
+  };
+  */
+
   //Datos del formulario
   form = {
     date: null,

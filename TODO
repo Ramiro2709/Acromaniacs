@@ -4,9 +4,13 @@
 
 - -------------comprobar que datos esten bien----------------------
 
-- Al hacer click que solo se inserte en base, salga cartel de que se inserto exitosamente, despues de opcion de generar pdf
+------------------- Al hacer click que solo se inserte en base, salga cartel de que se inserto exitosamente, despues de opcion de generar pdf
+
+- Agregar ion select con forma de pago, transferencia, tarjeta, efectivo (No en comprobante)
 
 - Seleccionar id de alumno
+
+- Probar conectar desde el celular
 
 - Cambiar campo string "MesAbonado" a int de meses
 
