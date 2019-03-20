@@ -15,11 +15,16 @@ import { FileTransfer } from '@ionic-native/file-transfer/ngx';
 import { SQLite } from '@ionic-native/sqlite/ngx';
 import {SQLiteServiceService} from '../services/sqlite-service.service';
 
+import{ModalSearchAlumnosPage} from './modal-search-alumnos/modal-search-alumnos.page';
+
 import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
-  declarations: [AppComponent],
-  entryComponents: [],
+  declarations: [AppComponent,
+    ModalSearchAlumnosPage],
+  entryComponents: [
+    ModalSearchAlumnosPage
+  ],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule],
   providers: [
     StatusBar,

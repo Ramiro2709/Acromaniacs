@@ -1,25 +1,14 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Tab Two
+      Crear Alumno
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-item>
-    <ion-label stacked>From</ion-label>
-    <ion-input [(ngModel)]="letterObj.from"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label stacked>To</ion-label>
-    <ion-input [(ngModel)]="letterObj.to"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label stacked>Text</ion-label>
-    <ion-textarea [(ngModel)]="letterObj.text" rows="10"></ion-textarea>
-  </ion-item>
- 
-  <button ion-button full (click)="createPdf()">Create PDF</button>
-  <button ion-button full (click)="downloadPdf()" color="secondary" [disabled]="!pdfObj">Download PDF</button>
+  <!-- **** Boton para ir a ver alumnos   -->
+  <button ion-button full (click)="VerAlumnos()" class="button" text-center margin>Ver Alumnos</button>
+  <!-- **** Boton para crear alumnos   -->
+  <button ion-button full (click)="CrearAlumno()" class="button" text-center margin>Crear Alumno</button>
 </ion-content>

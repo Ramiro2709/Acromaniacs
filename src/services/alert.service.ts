@@ -1,8 +1,8 @@
 import { Injectable,Injector } from '@angular/core';
 
-import { AlertController,LoadingController} from '@ionic/angular';
+import { AlertController,LoadingController, ModalController} from '@ionic/angular';
 
-
+import {MySQLService} from './my-sql.service';
 import {PDFMakerService} from './pdfmaker.service';
 
 @Injectable({
@@ -10,8 +10,10 @@ import {PDFMakerService} from './pdfmaker.service';
 })
 export class AlertService {
   pDFMakerService : any;
-  constructor(private alertController: AlertController, public injector: Injector, public loadingCtrl:LoadingController) { 
+  mySQLService;
+  constructor(private alertController: AlertController, public injector: Injector, public loadingCtrl:LoadingController, public modalCtrl: ModalController) { 
     this.pDFMakerService = injector.get(PDFMakerService);
+    this.mySQLService = injector.get(MySQLService);
   }
 
   //Muestra error cuando algun input es incorrecto
@@ -38,7 +40,7 @@ export class AlertService {
     await alert.present();
   }
 
-  async AltaExitosa(IdAlumno: number, Fecha: Date, MesAbonado: string, Recargo: boolean, Monto: number){
+  async AltaExitosa(IdAlumno: number, Fecha: Date, MesAbonado: string, Recargo: boolean, Monto: number, NombreApellido:string){
     //console.log("AltaExitosa");
     const alert = await this.alertController.create({
       header: 'Exito',
@@ -48,7 +50,7 @@ export class AlertService {
         {
           text: 'Generar PDF',
           handler: () => {
-            this.pDFMakerService.createPdf(IdAlumno, Fecha, MesAbonado, Recargo, Monto);
+            this.pDFMakerService.createPdf(IdAlumno, Fecha, MesAbonado, Recargo, Monto,NombreApellido);
           }
         }
       ]
@@ -56,7 +58,7 @@ export class AlertService {
     await alert.present();
   }
 
-  async AltaError(IdAlumno: number, Fecha: Date, MesAbonado: string, Recargo: boolean, Monto: number){
+  async AltaError(IdAlumno: number, Fecha: Date, MesAbonado: string, Recargo: boolean, Monto: number, NombreApellido:string){
     //console.log("AltaError");
     const alert = await this.alertController.create({
       header: 'Error',
@@ -66,9 +68,31 @@ export class AlertService {
         {
           text: 'Generar PDF',
           handler: () => {
-            this.pDFMakerService.createPdf(IdAlumno, Fecha, MesAbonado, Recargo, Monto);
+            this.pDFMakerService.createPdf(IdAlumno, Fecha, MesAbonado, Recargo, Monto,NombreApellido);
           }
         }
+      ]
+    });
+    await alert.present();
+  }
+
+  async AltaAlumnoExitosa(){
+    const alert = await this.alertController.create({
+      header: 'Exito',
+      message: 'Alumno cargado exitosamente',
+      buttons: [
+        'OK',
+      ]
+    });
+    await alert.present();
+  }
+
+  async AltaAlumnoError(){
+    const alert = await this.alertController.create({
+      header: 'Error',
+      message: 'Error al cargar datos. No hay conexion con el servidor',
+      buttons: [
+        'OK',
       ]
     });
     await alert.present();
@@ -97,5 +121,40 @@ export class AlertService {
     );
   }
 
+  //TODO?: Agregar mas campos a los alumnos
+  async CrearAlumnoPrompt() {
+    const alert = await this.alertController.create({
+      header: 'Crear Alumno',
+      inputs: [
+        {
+          name: 'nombre',
+          type: 'text',
+          placeholder: 'Nombre'
+        },
+        {
+          name: 'apellido',
+          type: 'text',
+          id: 'apellido-id',
+          placeholder: 'Apellido'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          //cssClass: 'secondary',
+          handler: () => {
+          }
+        }, {
+          text: 'Crear Alumno',
+          handler: data => { //data: inputs
+            this.mySQLService.AltaAlumno(data.nombre,data.apellido);
+          }
+        }
+      ]
+    });
+    await alert.present();
+  } // Fin CrearAlumnoPrompt
 
-}
+} // Fin Class AlertService
+

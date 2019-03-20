@@ -18,11 +18,14 @@
         </ion-item>
 
         <ion-item class="input_Ion-item">
-          <ion-card-subtitle class="nombre_campo">Nombre: </ion-card-subtitle>
-          <ion-input class="form_input" type="text" [(ngModel)]="form.name" name="name" maxlength="35"></ion-input>
+        <button ion-button full (click)="presentModal()" class="button" text-center margin>Seleccionar Alumno</button>
+        <ion-card-subtitle class="nombre_campo">Nombre: </ion-card-subtitle>
+        <ion-input class="form_input" type="text" [(ngModel)]="form.name" name="name" maxlength="35"></ion-input>
+        </ion-item>
+        <ion-item class="input_Ion-item">
         </ion-item>
         
-        <!--
+        <!-- *** Viejo input lista "Mes abonado"
         <ion-item class="input_Ion-item">
             <ion-card-subtitle class="nombre_campo">Mes Abonado: </ion-card-subtitle>
           <input class="form_input , list" list="meses"  [(ngModel)]="form.mes" name="mes" maxlength="12">
@@ -45,7 +48,7 @@
 
         <ion-item class="input_Ion-item">
           <ion-label class="nombre_campo">Mes Abonado:</ion-label>
-          <ion-select class="form_input , list"  [(ngModel)]="form.mes" name="mes" [interfaceOptions]="customAlertOptions" interface="alert" placeholder="Seleccionar">
+          <ion-select class="form_input , list"  [(ngModel)]="form.mes" name="mes" [interfaceOptions]="customAlertOptions" interface="alert" placeholder="Mes">
             <ion-select-option value="Enero">Enero</ion-select-option>
             <ion-select-option value="Febrero">Febrero</ion-select-option>
             <ion-select-option value="Marzo">Marzo</ion-select-option>
@@ -59,9 +62,20 @@
             <ion-select-option value="Noviembre">Noviembre</ion-select-option>
             <ion-select-option value="Diciembre">Diciembre</ion-select-option>
           </ion-select>
+          <ion-select class="form_input , list"  [(ngModel)]="form.anioAbonado" name="anio" [interfaceOptions]="customAlertOptions" interface="alert" placeholder="Año">
+            <ion-select-option value="2018">2018</ion-select-option>
+            <ion-select-option value="2019">2019</ion-select-option>
+            <ion-select-option value="2020">2020</ion-select-option>
+            <ion-select-option value="2021">2021</ion-select-option>
+            <ion-select-option value="2022">2022</ion-select-option>
+            <ion-select-option value="2023">2023</ion-select-option>
+            <ion-select-option value="2024">2024</ion-select-option>
+            <ion-select-option value="2025">2025</ion-select-option>
+            <ion-select-option value="2026">2026</ion-select-option>
+          </ion-select>
         </ion-item>
 
-        <!--
+        <!-- *** Viejo input lista "Recargo"
         <ion-item class="input_Ion-item">
           <ion-card-subtitle class="nombre_campo">Recargo: </ion-card-subtitle>
           <input class="form_input , list" list="si_no"  [(ngModel)]="form.recargo" name="recargo">

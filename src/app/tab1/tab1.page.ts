@@ -1,6 +1,5 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
-import { AlertController } from '@ionic/angular';
-
+import { AlertController,ModalController } from '@ionic/angular';
 
 import { Platform } from '@ionic/angular';
 
@@ -9,6 +8,7 @@ import {AlertService} from '../../services/alert.service';
 //import {PDFMakerService} from '../../services/pdfmaker.service';
 
 //import { DebugContext } from '@angular/core/src/view';
+import {ModalSearchAlumnosPage} from '../modal-search-alumnos/modal-search-alumnos.page';
 
 @Component({
   selector: 'app-tab1',
@@ -18,6 +18,7 @@ import {AlertService} from '../../services/alert.service';
 
 export class Tab1Page {
   
+  //TODO: Al obtener datos del alumno, mostrar nombre y apellido combinado
   /*
   //ion select options
   customPopoverOptions: any = {
@@ -31,7 +32,9 @@ export class Tab1Page {
   form = {
     date: null,
     name: null,
+    idAlumno: null,
     mes: null,
+    anioAbonado: null,
     recargo: null,
     monto: null
   }
@@ -39,9 +42,10 @@ export class Tab1Page {
   pdfObj = null;
   recargo;
  
-  constructor(private plt: Platform,  private MySql: MySQLService, private changeDet: ChangeDetectorRef, private alertController: AlertController, private alertService: AlertService) {
+  constructor(private plt: Platform,  private MySql: MySQLService, private changeDet: ChangeDetectorRef, private alertController: AlertController, private alertService: AlertService, private modalController: ModalController) {
     this.GetDate();
-    //console.log("asd")
+    this.form.recargo = "No";
+    this.MySql.GetAlumnos();
   }
   ionViewDidLoad() {}
 
@@ -65,6 +69,7 @@ export class Tab1Page {
     }
     this.form.date = yyyy + "-" + mmVar + "-" +ddVar;
     console.log(this.form.date);
+    this.form.anioAbonado = yyyy.toString();
   }
 
   subirDatos(){
@@ -74,12 +79,7 @@ export class Tab1Page {
     //this.MySql.enviarBase(1,this.form.date, this.form.mes,this.recargo,this.form.monto);
     //this.createPdf(); 
   }
-
-
-  // Crea el PDF
-  //TODO: agregar esta funcion a un servicio, donde se manden los datos como parametros
   
-
   RecargoBool(){
     //console.log(this.form.recargo);
     if (this.form.recargo == "Si"){
@@ -142,7 +142,7 @@ export class Tab1Page {
     }
 
     if (montoCorrecto && recargoCorrecto && mesCorrecto && fechaCorrecta){
-      this.MySql.enviarBase(1,this.form.date, this.form.mes,this.recargo,this.form.monto);
+      this.MySql.enviarBase(this.form.idAlumno,this.form.date, this.form.mes,this.form.anioAbonado,this.recargo,this.form.monto,this.form.name);
     } else{
       console.log("Error");
       this.alertService.ShowError(mesCorrecto, recargoCorrecto, montoCorrecto, fechaCorrecta);
@@ -150,5 +150,17 @@ export class Tab1Page {
   }
 
   
+
+  async presentModal() {
+    const modal = await this.modalController.create({
+      component: ModalSearchAlumnosPage,
+      componentProps: { value: 123 }
+    });
+    await modal.present();
+    const { data } = await modal.onDidDismiss();
+    console.log(data);
+    this.form.name = data.name;
+    this.form.idAlumno = data.idAlumno;
+  }
 }
 

@@ -1,7 +1,8 @@
 import { Injectable,Injector } from '@angular/core';
 
 import pdfMake from 'pdfmake/build/pdfmake';
-//import pdfFonts from 'pdfmake/build/vfs_fonts';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 import { File } from '@ionic-native/File/ngx';
 import { FileOpener } from '@ionic-native/file-opener/ngx';
@@ -24,7 +25,8 @@ export class PDFMakerService {
   recargo;
 
   //LLamado desde alert, crea comprobante en base a variables en mysql service
-  createPdf(IdAlumno: number, Fecha: Date, MesAbonado: string, Recargo: boolean, Monto: any) {
+  //TODO?: Agregar año abonado?
+  createPdf(IdAlumno: number, Fecha: Date, MesAbonado: string, Recargo: boolean, Monto: any, NombreApellido:string) {
     if (!Monto){ 
       Monto = "0";
     }
@@ -88,7 +90,7 @@ export class PDFMakerService {
           
                       [
                         { text: "    " , alignment: 'left' , style: 'date'},                      //1
-                        { text: IdAlumno, alignment: 'left' , style: 'subheaderInput'},    //2
+                        { text: NombreApellido, alignment: 'left' , style: 'subheaderInput'},    //2
                         { text: MesAbonado, alignment: 'left', style: 'subheaderInput'},       //3
                         { text: recargoString, alignment: 'left', style: 'subheaderInput'},   //4
                       ]

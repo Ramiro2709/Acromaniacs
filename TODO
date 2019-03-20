@@ -6,9 +6,27 @@
 
 ------------------- Al hacer click que solo se inserte en base, salga cartel de que se inserto exitosamente, despues de opcion de generar pdf
 
+------------------------- Agregar busqueda de alumnos en formulario comprobante
+    -------------------------- Recibir alumnos de base (Arreglar)
+    ------------------------------ Que seleccione un alumno, y su nombre y apellido se agrege al comprobante, su id a la base
+
+- Hacer vista de comrobantes y alumnos
+
 - Agregar ion select con forma de pago, transferencia, tarjeta, efectivo (No en comprobante)
 
-- Seleccionar id de alumno
+-+-+-+ Terminar Alta de alumno
+    ---------------------------- Si se selecciona clase Lunes-Miercoles, desabilitar Martes-Jueves, idem al reves
+    ---------------------------- Formulario de alumno: Desabilitar horario, habilitar cuando se selecciona dia, poner horarios especificos de cada dia, agregar al formulario
+    - Enviar solo si hay datos en nombre y apellido
+    - Agregar boton volver atras o tab abajo
+    ---------------------------- Hacer alta de cursos del alumno
+    - Editar y eliminar alumnos
+
+- Calcular Monto: * $600 1 vez x semana * $1.000 2 veces x semana * $1.300 3 veces x semana * $1.600 4 veces x semana
+
+---------------------------------------------------------- Seleccion de alumno
+
+----------------------------------------------------------------- Agregar clases a la base de datos y al input de creacion de alumnos
 
 - Probar conectar desde el celular
 

@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Alumnos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-item class="input_Ion-item">
+    <ion-searchbar placeholder="Alumno" (ionInput)="getAlumnos($event)"></ion-searchbar>
+  </ion-item>
+  <ion-list>
+    <!-- TODO: Que se generen botones que al seleccionar, envien nombre al form y id para el post -->
+    <!--
+      <ion-item *ngFor="let alumno of alumnos">
+      {{alumno.nombreApellido}}
+    </ion-item>
+    -->
+    <button *ngFor="let alumno of alumnos" ion-button full (click)="setAlumno(alumno.nombreApellido,alumno.idAlumno)" class="buttonAlumno" text-center margin>
+        {{alumno.nombreApellido}}
+    </button>
+  </ion-list>
+</ion-content>

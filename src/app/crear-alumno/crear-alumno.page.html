@@ -1,0 +1,213 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>CrearAlumno</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-item class="input_Ion-item">
+    <ion-card-subtitle class="nombre_campo">Nombre: </ion-card-subtitle>
+    <ion-input class="radios_input" type="text" [(ngModel)]="form.name" ></ion-input> 
+  </ion-item>
+
+  <ion-item class="input_Ion-item">
+    <ion-card-subtitle class="nombre_campo">Apellido: </ion-card-subtitle>
+    <ion-input class="radios_input" type="text" [(ngModel)]="form.apellido" maxlength="35" ></ion-input>
+  </ion-item>
+
+  <ion-grid> <!-- Grid con dias y horarios -->
+      <ion-row>
+        <ion-col>  <!-- Columna 1-->
+          <div>
+              <ion-list class="listaClases">
+                  <ion-list-header class="nombreCampoClases">
+                      Dia
+                  </ion-list-header>
+              </ion-list>
+          </div>
+        </ion-col>
+        <ion-col>  <!-- Columna 2-->
+          <div>
+              <ion-list class="listaClases">
+                  <ion-list-header class="nombreCampoClases">
+                      Horario
+                  </ion-list-header>  
+              </ion-list>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row> <!-- Fila 2: Lunes-->
+          <ion-col>
+            <div>
+                <ion-radio-group [(ngModel)]="radios.lunes" allowEmptySelection=true (ionChange)=DisableClase()>
+                    <ion-item>
+                      <ion-label class="label">Lunes</ion-label>
+                      <ion-radio  value="true"></ion-radio>
+                    </ion-item>
+                  </ion-radio-group>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div>
+                <div class="listHorarios">
+                    <ion-select  [disabled]="horarioLunes.disabled" [(ngModel)]="form.horarioLunes" name="lunesHorario" [interfaceOptions]="customPopoverOptions" interface="popover" placeholder="Eliga horario">
+                      <ion-select-option class="popover" value="18:00">18:00</ion-select-option>
+                      <ion-select-option class="popover" value="19:30">19:30</ion-select-option>
+                      <ion-select-option class="popover" value="21:00">21:00</ion-select-option>
+                    </ion-select>
+                </div>
+            </div>
+          </ion-col>
+      </ion-row>
+
+      <ion-row> <!-- Fila 3: Martes -->
+        <ion-col> <!-- Col Dia -->
+          <div> 
+              <ion-radio-group allowEmptySelection=true [(ngModel)]="radios.martes" (ionChange)=DisableClase()>
+                  <ion-item>
+                    <ion-label class="label">Martes</ion-label>
+                    <ion-radio value=true></ion-radio>
+                  </ion-item>
+                </ion-radio-group>
+          </div>
+        </ion-col>
+        <ion-col> <!-- Col Hora -->
+          <div>
+              <div class="listHorarios">
+                  <ion-select [disabled]="horarioMartes.disabled" [(ngModel)]="form.horarioMartes" [interfaceOptions]="customPopoverOptions" interface="popover" placeholder="Eliga horario">
+                    <ion-select-option value="17:30">17:30</ion-select-option>
+                    <ion-select-option value="19:00">19:00</ion-select-option>
+                    <ion-select-option value="20:30">20:30</ion-select-option>
+                  </ion-select>
+              </div>
+          </div>
+        </ion-col>
+    </ion-row>
+
+    <ion-row> <!-- Fila 4: Miercoles -->
+      <ion-col>
+        <div>
+            <ion-radio-group  allowEmptySelection=true [(ngModel)]="radios.miercoles" (ionChange)=DisableClase()>
+                <ion-item>
+                  <ion-label class="label">Miercoles</ion-label>
+                  <ion-radio value=true></ion-radio>
+                </ion-item>
+              </ion-radio-group>
+        </div>
+      </ion-col>
+      <ion-col>
+        <div>
+            <div class="listHorarios">
+                <ion-select [disabled]="horarioMiercoles.disabled" [(ngModel)]="form.horarioMiercoles" name="miercolesHorario" [interfaceOptions]="customPopoverOptions" interface="popover" placeholder="Eliga horario">
+                  <ion-select-option value="18:00">18:00</ion-select-option>
+                  <ion-select-option value="19:30">19:30</ion-select-option>
+                  <ion-select-option value="21:00">21:00</ion-select-option>
+                </ion-select>
+            </div>
+        </div>
+      </ion-col>
+  </ion-row>
+
+  <ion-row> <!-- Fila 5 : Jueves -->
+    <ion-col>
+      <div>
+          <ion-radio-group allowEmptySelection=true [(ngModel)]="radios.jueves" (ionChange)=DisableClase()>
+              <ion-item>
+                <ion-label class="label">Jueves</ion-label>
+                <ion-radio value=true></ion-radio>
+              </ion-item>
+          </ion-radio-group>
+      </div>
+    </ion-col>
+    <ion-col>
+      <div>
+          <div class="listHorarios">
+              <ion-select [disabled]="horarioJueves.disabled" [(ngModel)]="form.horarioJueves" name="juevesHorario" [interfaceOptions]="customPopoverOptions" interface="popover" placeholder="Eliga horario">
+                <ion-select-option value="17:30">17:30</ion-select-option>
+                <ion-select-option value="19:00">19:00</ion-select-option>
+                <ion-select-option value="20:30">20:30</ion-select-option>
+              </ion-select>
+          </div>
+      </div>
+    </ion-col>
+</ion-row>
+
+<ion-row> <!-- Fila 6: Viernes -->
+  <ion-col> <!-- Col Dia -->
+    <div>
+        <ion-radio-group allowEmptySelection=true [(ngModel)]="radios.viernes" (ionChange)=DisableClase()>
+            <ion-item>
+              <ion-label class="label">Viernes</ion-label>
+              <ion-radio value=true></ion-radio>
+            </ion-item>
+          </ion-radio-group>
+    </div>
+  </ion-col>
+  <ion-col> <!-- Col Hora -->
+    <div>
+        <div class="listHorarios">
+            <ion-select [disabled]="horarioViernes.disabled" [(ngModel)]="form.horarioViernes" name="viernesHorario" [interfaceOptions]="customPopoverOptions" interface="popover" placeholder="Eliga horario">
+              <ion-select-option value="18:00">18:00</ion-select-option>
+              <ion-select-option value="19:30">19:30</ion-select-option>
+              <ion-select-option value="21:00">21:00</ion-select-option>
+            </ion-select>
+        </div>
+    </div>
+  </ion-col>
+</ion-row>
+
+<ion-row> <!-- Fila 7: Sabado -->
+  <ion-col> <!-- Col Dia -->
+    <div>
+        <ion-radio-group allowEmptySelection=true [(ngModel)]="radios.sabado" (ionChange)=DisableClase()>
+            <ion-item>
+              <ion-label class="label">Sabado</ion-label>
+              <ion-radio value=true></ion-radio>
+            </ion-item>
+          </ion-radio-group>
+    </div>
+  </ion-col>
+  <ion-col> <!-- Col Hora -->
+    <div>
+        <div class="listHorarios">
+            <ion-select [disabled]="horarioSabado.disabled" [(ngModel)]="form.horarioSabado" name="sabadoHorario" [interfaceOptions]="customPopoverOptions" interface="popover" placeholder="Eliga horario">
+              <ion-select-option value="18:00">18:00</ion-select-option>
+              <ion-select-option value="19:30">19:30</ion-select-option>
+              <ion-select-option value="21:00">21:00</ion-select-option>
+            </ion-select>
+        </div>
+    </div>
+  </ion-col>
+</ion-row>
+<ion-row> <!-- Fila 8: Domingo -->
+  <ion-col> <!-- Col Dia -->
+    <div>
+        <ion-radio-group allowEmptySelection=true [(ngModel)]="radios.domingo" (ionChange)=DisableClase()>
+            <ion-item>
+              <ion-label class="label">Domingo</ion-label>
+              <ion-radio value=true></ion-radio>
+            </ion-item>
+          </ion-radio-group>
+    </div>
+  </ion-col>
+  <ion-col> <!-- Col Hora -->
+    <div>
+        <div class="listHorarios">
+            <ion-select [disabled]="horarioDomingo.disabled" [(ngModel)]="form.horarioDomingo" name="domingoHorario" [interfaceOptions]="customPopoverOptions" interface="popover" placeholder="Eliga horario">
+              <ion-select-option value="18:00">18:00</ion-select-option>
+              <ion-select-option value="19:30">19:30</ion-select-option>
+              <ion-select-option value="21:00">21:00</ion-select-option>
+            </ion-select>
+        </div>
+    </div>
+  </ion-col>
+</ion-row>
+
+  </ion-grid>
+
+  
+
+  <button ion-button full (click)="EnviarAlumnoData()" class="button" text-center margin>Crear Alumno</button>
+
+</ion-content>
