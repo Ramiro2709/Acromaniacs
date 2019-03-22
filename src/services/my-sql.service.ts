@@ -6,6 +6,11 @@ import { HttpHeaders } from '@angular/common/http';
 import {AlertService} from './alert.service';
 //import {ModalSearchAlumnosPage} from '../app/modal-search-alumnos/modal-search-alumnos.page';
 
+import { Observable, of, throwError } from 'rxjs';
+import { forkJoin } from 'rxjs';
+//import 'rxjs/add/operator/catch';
+//import 'rxjs/add/operator/map';
+
 @Injectable({
   providedIn: 'root',
 
@@ -75,6 +80,7 @@ export class MySQLService {
       //console.log("Subscribe Post");
       this.alertService.dismiss();
       this.alertService.AltaAlumnoExitosa();
+      this.GetAlumnos();
     },
     (error : any) =>
     {

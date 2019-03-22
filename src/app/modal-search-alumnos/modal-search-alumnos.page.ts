@@ -26,11 +26,12 @@ export class ModalSearchAlumnosPage implements OnInit {
     //this.TodosAlumnos = this.MySql.AlumnosArray;
     // TODO: Arreglar, crearAlumnos se ejecuta antes que alla respuesta del servidor
     console.log("Init;");
-    this.MySql.GetAlumnos();
+    this.startModal();
     
   }
 
   startModal(){
+    //this.MySql.GetAlumnos();
     this.TodosAlumnos = new Array();
     this.crearAlumnos();
     this.initializeAlumnos();
@@ -65,9 +66,9 @@ export class ModalSearchAlumnosPage implements OnInit {
         nombreApellido: mysqlNombre + " " + mysqlApellido,
         idAlumno: this.MySql.AlumnosArray[i]['idAlumno']
       });
-      console.log("TodosAlumnos"+this.TodosAlumnos);
-
+      
     }
+    console.log("TodosAlumnos"+this.TodosAlumnos);
     
   }
 

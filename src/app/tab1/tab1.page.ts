@@ -45,7 +45,7 @@ export class Tab1Page {
   constructor(private plt: Platform,  private MySql: MySQLService, private changeDet: ChangeDetectorRef, private alertController: AlertController, private alertService: AlertService, private modalController: ModalController) {
     this.GetDate();
     this.form.recargo = "No";
-    
+    this.MySql.GetAlumnos();
   }
   ionViewDidLoad() {}
 
