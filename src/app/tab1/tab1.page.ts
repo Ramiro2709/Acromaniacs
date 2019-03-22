@@ -45,7 +45,7 @@ export class Tab1Page {
   constructor(private plt: Platform,  private MySql: MySQLService, private changeDet: ChangeDetectorRef, private alertController: AlertController, private alertService: AlertService, private modalController: ModalController) {
     this.GetDate();
     this.form.recargo = "No";
-    this.MySql.GetAlumnos();
+    
   }
   ionViewDidLoad() {}
 
@@ -159,8 +159,11 @@ export class Tab1Page {
     await modal.present();
     const { data } = await modal.onDidDismiss();
     console.log(data);
-    this.form.name = data.name;
-    this.form.idAlumno = data.idAlumno;
+    if (data != null){
+      this.form.name = data.name;
+      this.form.idAlumno = data.idAlumno;
+    }
+    
   }
 }
 

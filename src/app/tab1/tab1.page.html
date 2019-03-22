@@ -17,12 +17,10 @@
           <ion-input class="form_input" type="date" [(ngModel)]="form.date" name="date" displayFormat="DD MM YYYY" pickerFormat="DD/MM/YYYY"></ion-input> 
         </ion-item>
 
+        <button ion-button full (click)="presentModal()" class="buttonAlumno" text-center margin>Seleccionar Alumno</button>
         <ion-item class="input_Ion-item">
-        <button ion-button full (click)="presentModal()" class="button" text-center margin>Seleccionar Alumno</button>
-        <ion-card-subtitle class="nombre_campo">Nombre: </ion-card-subtitle>
-        <ion-input class="form_input" type="text" [(ngModel)]="form.name" name="name" maxlength="35"></ion-input>
-        </ion-item>
-        <ion-item class="input_Ion-item">
+            <ion-card-subtitle class="nombre_campo">Nombre: </ion-card-subtitle>
+            <ion-input class="form_input" type="text" [(ngModel)]="form.name" name="name" maxlength="35"></ion-input>    
         </ion-item>
         
         <!-- *** Viejo input lista "Mes abonado"
@@ -99,7 +97,7 @@
             $<ion-input class="form_input"  type="number" min="2" max="9" [(ngModel)]="form.monto" name="monto" maxlength="9" clearInput (ngModelChange)="change($event)"></ion-input>
         </ion-item>
 
-        <button ion-button full (click)="subirDatos()" class="button" text-center margin>Generar PDF</button>
+        <button ion-button full (click)="subirDatos()" class="buttonAlumno" text-center margin>Subir datos</button>
         
 
       </form>

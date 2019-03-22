@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 
 import {AlertService} from './alert.service';
+//import {ModalSearchAlumnosPage} from '../app/modal-search-alumnos/modal-search-alumnos.page';
 
 @Injectable({
   providedIn: 'root',
@@ -15,9 +16,12 @@ export class MySQLService {
   datosAlta;
   alertService : any;
   AlumnosArray;
+  AlumnosReceibed = false;
+  modal;
 
   constructor(public http: HttpClient, public injector: Injector) { 
     this.alertService = injector.get(AlertService);
+
     this.AlumnosArray = [];
 
     //Para que ande el post
@@ -91,7 +95,9 @@ export class MySQLService {
   */
   
   GetAlumnos(){
+    this.AlumnosReceibed = false;
     var ipAltaDatos = this.ipCarpeta + "getAlumnos.php";
+    this.AlumnosArray = [];
     //TODO: poner alert de no hay conexion con el servidor
     this.http.get(ipAltaDatos)
     .subscribe((data : any) =>
@@ -105,6 +111,9 @@ export class MySQLService {
           idAlumno: data[i]['idAlumno']
         });
       }
+      
+      //this.modal.startModal();
+
       console.log(this.AlumnosArray);
     },
     (error : any) =>

@@ -20,6 +20,15 @@ const routes: Routes = [
         path: 'tab2',
         children: [
           {
+            path: 'crear-alumno',
+            children: [
+              {
+                path: '',
+                loadChildren: '../crear-alumno/crear-alumno.module#CrearAlumnoPageModule'
+              }
+            ]
+          },
+          {
             path: '',
             loadChildren: '../tab2/tab2.module#Tab2PageModule'
           }

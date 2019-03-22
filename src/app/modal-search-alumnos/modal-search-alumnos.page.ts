@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Injector } from '@angular/core';
 import { NavParams } from '@ionic/angular';
 import {ModalController } from '@ionic/angular';
 
@@ -14,20 +14,38 @@ export class ModalSearchAlumnosPage implements OnInit {
   searchQuery: string = '';
   alumnos: string[];
   TodosAlumnos: any[];
+  MySql;
 
-  constructor(navParams: NavParams, private MySql: MySQLService, private modalController: ModalController) { 
-    
+  constructor(navParams: NavParams, private modalController: ModalController, public injector: Injector) { 
+    this.MySql = injector.get(MySQLService);
     //this.TodosAlumnos = this.MySql.AlumnosArray;
+    
   }
 
   ngOnInit() {
     //this.TodosAlumnos = this.MySql.AlumnosArray;
+    // TODO: Arreglar, crearAlumnos se ejecuta antes que alla respuesta del servidor
+    console.log("Init;");
+    this.MySql.GetAlumnos();
+    
+  }
+
+  startModal(){
     this.TodosAlumnos = new Array();
     this.crearAlumnos();
     this.initializeAlumnos();
   }
 
+  ionModalDidPresent(){
+    /*
+    this.TodosAlumnos = new Array();
+    this.crearAlumnos();
+    this.initializeAlumnos();
+    */
+  }
+
   crearAlumnos(){
+    
     for(let i=0;i<this.MySql.AlumnosArray.length;i++){
       var mysqlNombre:any;
       var mysqlApellido:any;
@@ -47,8 +65,10 @@ export class ModalSearchAlumnosPage implements OnInit {
         nombreApellido: mysqlNombre + " " + mysqlApellido,
         idAlumno: this.MySql.AlumnosArray[i]['idAlumno']
       });
+      console.log("TodosAlumnos"+this.TodosAlumnos);
 
     }
+    
   }
 
   initializeAlumnos(){
@@ -73,6 +93,7 @@ export class ModalSearchAlumnosPage implements OnInit {
   
   getAlumnos(ev: any) {
     // Reset items back to all of the items
+    //this.crearAlumnos()
     this.initializeAlumnos();
 
     // set val to the value of the searchbar

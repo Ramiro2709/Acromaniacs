@@ -1,5 +1,9 @@
 <ion-header>
+        
   <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-back-button defaultHref="/tabs/tab2"></ion-back-button>
+        </ion-buttons>
     <ion-title>CrearAlumno</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -208,6 +212,6 @@
 
   
 
-  <button ion-button full (click)="EnviarAlumnoData()" class="button" text-center margin>Crear Alumno</button>
+  <button ion-button full (click)="EnviarAlumnoData()" class="buttonAlumno" text-center margin>Crear Alumno</button>
 
 </ion-content>
