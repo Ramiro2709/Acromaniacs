@@ -4,6 +4,8 @@ import { AlertController,LoadingController, ModalController} from '@ionic/angula
 
 import {MySQLService} from './my-sql.service';
 import {PDFMakerService} from './pdfmaker.service';
+import { CrearAlumnoPage } from 'src/app/crear-alumno/crear-alumno.page';
+import { ModalSearchAlumnosPage } from 'src/app/modal-search-alumnos/modal-search-alumnos.page';
 
 @Injectable({
   providedIn: 'root'
@@ -96,6 +98,36 @@ export class AlertService {
       ]
     });
     await alert.present();
+  }
+
+  async GetAlumnosError(){
+    const alert = await this.alertController.create({
+      header: 'Error',
+      message: 'Error al cargar alumnos. No hay conexion con el servidor o no hay datos',
+      buttons: [
+        {
+          text: 'OK',
+          handler: () => {
+          }
+        }
+      ] 
+    });
+    return await alert.present();
+  }
+
+  async CrearAlumnoError(){
+    const alert = await this.alertController.create({
+      header: 'Error',
+      message: 'Ingrese nombre y apellido',
+      buttons: [
+        {
+          text: 'OK',
+          handler: () => {
+          }
+        }
+      ] 
+    });
+    return await alert.present();
   }
 
   isLoading = false;

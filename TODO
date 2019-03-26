@@ -1,3 +1,41 @@
+
+* Vista Alumnos:
+    - Vista de Alumnos, poder editarlos, eliminarlos, ver sus meses pagados
+
+    - Al crear alumno, que se cierre la pestaña o se eliminen los datos para ingresar uno nuevo
+
+* Formulario Comprobantes:
+    - Mes a abonar predefinido sea el ultimo sin pagar, al mostrar la lista muestre en diferentes
+      colores meses pagados y los no pagados
+
+    - Agregar ion select con forma de pago, transferencia, tarjeta, efectivo (No en comprobante)
+
+    - Cambiar opacidad de nombre disable a 1
+
+    - Si otro celular carga alumno, no se le actualiza al resto, arreglar, tratar ver como hacer que  
+    se actualizen los alumnos cada vez que se abre el modal y esperen al subscribe
+
+
+
+
+
+
+- Probar conectar desde el celular
+
+- Cambiar campo string "MesAbonado" a int de meses
+
+
+
+
+* Terminados
+
+---------- Terminar Alta de alumno
+    ---------------------------- Si se selecciona clase Lunes-Miercoles, desabilitar Martes-Jueves, idem al reves
+    ---------------------------- Formulario de alumno: Desabilitar horario, habilitar cuando se selecciona dia, poner horarios especificos de cada dia, agregar al formulario
+    ----------------------------- Enviar solo si hay datos en nombre y apellido
+    ----------------------------- Agregar boton volver atras o tab abajo
+    ---------------------------- Hacer alta de cursos del alumno
+
 - ----Insert en base desde altaDatos.php----
 
 - --------Evitar que se ingrese mas de 1 simbolo en input monto--------
@@ -10,25 +48,8 @@
     -------------------------- Recibir alumnos de base (Arreglar)
     ------------------------------ Que seleccione un alumno, y su nombre y apellido se agrege al comprobante, su id a la base
 
-- Hacer vista de comrobantes y alumnos
-
-- Agregar ion select con forma de pago, transferencia, tarjeta, efectivo (No en comprobante)
-
--+-+-+ Terminar Alta de alumno
-    ---------------------------- Si se selecciona clase Lunes-Miercoles, desabilitar Martes-Jueves, idem al reves
-    ---------------------------- Formulario de alumno: Desabilitar horario, habilitar cuando se selecciona dia, poner horarios especificos de cada dia, agregar al formulario
-    - Enviar solo si hay datos en nombre y apellido
-    - Agregar boton volver atras o tab abajo
-    ---------------------------- Hacer alta de cursos del alumno
-    - Editar y eliminar alumnos
-
-- Calcular Monto: * $600 1 vez x semana * $1.000 2 veces x semana * $1.300 3 veces x semana * $1.600 4 veces x semana
+---------------------------- Calcular Monto: * $600 1 vez x semana * $1.000 2 veces x semana * $1.300 3 veces x semana * $1.600 4 veces x semana
 
 ---------------------------------------------------------- Seleccion de alumno
 
 ----------------------------------------------------------------- Agregar clases a la base de datos y al input de creacion de alumnos
-
-- Probar conectar desde el celular
-
-- Cambiar campo string "MesAbonado" a int de meses
-

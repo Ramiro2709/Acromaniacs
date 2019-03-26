@@ -5,17 +5,16 @@
 </ion-header>
 
 <ion-content padding>
+  <!-- Item con boton cancelar y searchbar -->
   <ion-item class="input_Ion-item">
+      <button ion-button full (click)="dismissModal()" class="button1" text-center margin>
+        Cancelar X
+      </button>
     <ion-searchbar placeholder="Alumno" (ionInput)="getAlumnos($event)"></ion-searchbar>
   </ion-item>
+  <!-- List con botones de alumnos generados -->
   <ion-list>
-    <!-- TODO: Que se generen botones que al seleccionar, envien nombre al form y id para el post -->
-    <!--
-      <ion-item *ngFor="let alumno of alumnos">
-      {{alumno.nombreApellido}}
-    </ion-item>
-    -->
-    <button *ngFor="let alumno of alumnos" ion-button full (click)="setAlumno(alumno.nombreApellido,alumno.idAlumno)" class="buttonAlumno" text-center margin>
+    <button *ngFor="let alumno of alumnos" ion-button full (click)="setAlumno(alumno)" class="selectAlumno" text-center margin>
         {{alumno.nombreApellido}}
     </button>
   </ion-list>

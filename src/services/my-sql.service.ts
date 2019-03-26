@@ -17,7 +17,7 @@ import { forkJoin } from 'rxjs';
 })
 export class MySQLService {
   ipCarpeta : string = "http://localhost/acromaniacs/"; //Direccion local
-  //ipCarpeta : string = "http://192.168.0.102/acromaniacs/"; //WIFI local
+  //ipCarpeta : string = "http://192.168.0.7/acromaniacs/"; //WIFI local
   datosAlta;
   alertService : any;
   AlumnosArray;
@@ -69,7 +69,6 @@ export class MySQLService {
   }
 
   AltaAlumno(form){
-    //TODO: Alta de cursos a los que pertecene el alumno
     form = JSON.stringify(form);
     var ipAltaDatos = this.ipCarpeta + "altaAlumnos.php";
     this.alertService.present();
@@ -104,17 +103,25 @@ export class MySQLService {
     this.AlumnosReceibed = false;
     var ipAltaDatos = this.ipCarpeta + "getAlumnos.php";
     this.AlumnosArray = [];
-    //TODO: poner alert de no hay conexion con el servidor
     this.http.get(ipAltaDatos)
     .subscribe((data : any) =>
     {
       //console.log("Subscribe Post");
-      var lenght = data['lenght'];
+      var AlumnosObtenidos = data;
+
+      var lenght = AlumnosObtenidos['lenght'];
       for(let i=0;i<lenght;i++){
         this.AlumnosArray.push({
-          nombre: data[i]['nombre'],
-          apellido: data[i]['apellido'],
-          idAlumno: data[i]['idAlumno']
+          nombre: AlumnosObtenidos[i]['nombre'],
+          apellido: AlumnosObtenidos[i]['apellido'],
+          idAlumno: AlumnosObtenidos[i]['idAlumno'],
+          IdClaseAlumno : AlumnosObtenidos[i]['IdClaseAlumno'],
+          horarioLunes: AlumnosObtenidos[i]["horarioLunes"],
+          horarioMartes: AlumnosObtenidos[i]["horarioMartes"],
+          horarioMiercoles: AlumnosObtenidos[i]["horarioMiercoles"],
+          horarioJueves: AlumnosObtenidos[i]["horarioJueves"],
+          horarioViernes: AlumnosObtenidos[i]["horarioViernes"],
+          horarioSabado: AlumnosObtenidos[i]["horarioSabado"],
         });
       }
       

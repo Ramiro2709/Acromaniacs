@@ -18,16 +18,6 @@ import {ModalSearchAlumnosPage} from '../modal-search-alumnos/modal-search-alumn
 
 export class Tab1Page {
   
-  //TODO: Al obtener datos del alumno, mostrar nombre y apellido combinado
-  /*
-  //ion select options
-  customPopoverOptions: any = {
-    header: 'Hair Color',
-    subHeader: 'Select your hair color',
-    message: 'Only select your dominant hair color'
-  };
-  */
-
   //Datos del formulario
   form = {
     date: null,
@@ -74,7 +64,6 @@ export class Tab1Page {
 
   subirDatos(){
     this.RecargoBool();
-    //TODO: obtener id de alumno
     this.ValidarYEnviar();
     //this.MySql.enviarBase(1,this.form.date, this.form.mes,this.recargo,this.form.monto);
     //this.createPdf(); 
@@ -162,6 +151,7 @@ export class Tab1Page {
     if (data != null){
       this.form.name = data.name;
       this.form.idAlumno = data.idAlumno;
+      this.form.monto = data.monto;
     }
     
   }

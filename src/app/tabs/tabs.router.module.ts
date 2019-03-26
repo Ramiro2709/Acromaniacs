@@ -19,7 +19,7 @@ const routes: Routes = [
       {
         path: 'tab2',
         children: [
-          {
+          { //Ruta de hijo de tab2, crear alumno
             path: 'crear-alumno',
             children: [
               {
@@ -28,7 +28,16 @@ const routes: Routes = [
               }
             ]
           },
-          {
+          { //Ruta de hijo de tab2, ver alumnos
+            path: 'ver-alumnos',
+            children: [
+              {
+                path: '',
+                loadChildren: '../ver-alumnos/ver-alumnos.module#VerAlumnosPageModule'
+              }
+            ]
+          },
+          { //Ruta de la pagina tab2
             path: '',
             loadChildren: '../tab2/tab2.module#Tab2PageModule'
           }

@@ -10,11 +10,13 @@
 
 <ion-content padding>
 
+  <!-- Item nombre del alumno -->
   <ion-item class="input_Ion-item">
     <ion-card-subtitle class="nombre_campo">Nombre: </ion-card-subtitle>
     <ion-input class="radios_input" type="text" [(ngModel)]="form.name" ></ion-input> 
   </ion-item>
 
+  <!-- Item apellido del alumno -->
   <ion-item class="input_Ion-item">
     <ion-card-subtitle class="nombre_campo">Apellido: </ion-card-subtitle>
     <ion-input class="radios_input" type="text" [(ngModel)]="form.apellido" maxlength="35" ></ion-input>
@@ -184,8 +186,10 @@
     </div>
   </ion-col>
 </ion-row>
-<ion-row> <!-- Fila 8: Domingo -->
-  <ion-col> <!-- Col Dia -->
+<!-- Fila 8: Domingo -->
+<!--
+<ion-row>   
+  <ion-col> 
     <div>
         <ion-radio-group allowEmptySelection=true [(ngModel)]="radios.domingo" (ionChange)=DisableClase()>
             <ion-item>
@@ -195,7 +199,7 @@
           </ion-radio-group>
     </div>
   </ion-col>
-  <ion-col> <!-- Col Hora -->
+  <ion-col> 
     <div>
         <div class="listHorarios">
             <ion-select [disabled]="horarioDomingo.disabled" [(ngModel)]="form.horarioDomingo" name="domingoHorario" [interfaceOptions]="customPopoverOptions" interface="popover" placeholder="Eliga horario">
@@ -207,11 +211,11 @@
     </div>
   </ion-col>
 </ion-row>
-
+-->
   </ion-grid>
 
   
-
+ <!-- Boton crear alumno -->
   <button ion-button full (click)="EnviarAlumnoData()" class="buttonAlumno" text-center margin>Crear Alumno</button>
 
 </ion-content>

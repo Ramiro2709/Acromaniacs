@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import {MySQLService} from '../../services/my-sql.service';
+import {AlertService} from '../../services/alert.service';
 
 @Component({
   selector: 'app-crear-alumno',
@@ -39,7 +40,7 @@ export class CrearAlumnoPage implements OnInit {
   horarioSabado={disabled:true};
   horarioDomingo={disabled:true};
 
-  constructor(private MySql: MySQLService) { }
+  constructor(private MySql: MySQLService,private alertService: AlertService) { }
 
   ngOnInit() {
   }
@@ -119,6 +120,11 @@ export class CrearAlumnoPage implements OnInit {
   */
 
   EnviarAlumnoData(){
+    if (this.form.name == null || this.form.apellido == null){
+      this.alertService.CrearAlumnoError();
+      return;
+    }
+
     for (var i in this.form){
       //console.log("Key:" + i);
       //console.log("Value:" + this.form[i]);

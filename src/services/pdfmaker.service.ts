@@ -25,7 +25,6 @@ export class PDFMakerService {
   recargo;
 
   //LLamado desde alert, crea comprobante en base a variables en mysql service
-  //TODO?: Agregar año abonado?
   createPdf(IdAlumno: number, Fecha: Date, MesAbonado: string, Recargo: boolean, Monto: any, NombreApellido:string) {
     if (!Monto){ 
       Monto = "0";

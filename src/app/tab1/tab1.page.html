@@ -12,41 +12,24 @@
 
         <ion-card-title>Formulario para comprobante </ion-card-title>
 
+        <!-- Item Fecha -->
         <ion-item class="input_Ion-item">
           <ion-card-subtitle class="nombre_campo">Fecha: </ion-card-subtitle>
-          <ion-input class="form_input" type="date" [(ngModel)]="form.date" name="date" displayFormat="DD MM YYYY" pickerFormat="DD/MM/YYYY"></ion-input> 
+          <ion-input class="form_input" type="date" [(ngModel)]="form.date" name="date" displayFormat="DD MM YYYY" pickerFormat="DD/MM/YYYY" ></ion-input> 
         </ion-item>
 
+        <!-- Boton seleccionar alumnos -->
         <button ion-button full (click)="presentModal()" class="buttonAlumno" text-center margin>Seleccionar Alumno</button>
+        <!-- Item con alumno seleccionado -->
         <ion-item class="input_Ion-item">
             <ion-card-subtitle class="nombre_campo">Nombre: </ion-card-subtitle>
-            <ion-input class="form_input" type="text" [(ngModel)]="form.name" name="name" maxlength="35"></ion-input>    
+            <ion-input class="form_input" type="text" [(ngModel)]="form.name" id="name" name="name" maxlength="35" disabled=true></ion-input>    
         </ion-item>
-        
-        <!-- *** Viejo input lista "Mes abonado"
-        <ion-item class="input_Ion-item">
-            <ion-card-subtitle class="nombre_campo">Mes Abonado: </ion-card-subtitle>
-          <input class="form_input , list" list="meses"  [(ngModel)]="form.mes" name="mes" maxlength="12">
-          <datalist id="meses">
-            <option value="Enero">
-            <option value="Febrero">
-            <option value="Marzo">
-            <option value="Abril">
-            <option value="Mayo">
-            <option value="Junio">
-            <option value="Julio">
-            <option value="Agosto">
-            <option value="Septiembre">
-            <option value="Octubre">
-            <option value="Noviembre">
-            <option value="Diciembre">
-          </datalist>
-        </ion-item>
-        -->
 
+        <!-- Item con lista de Meses y Año -->
         <ion-item class="input_Ion-item">
           <ion-label class="nombre_campo">Mes Abonado:</ion-label>
-          <ion-select class="form_input , list"  [(ngModel)]="form.mes" name="mes" [interfaceOptions]="customAlertOptions" interface="alert" placeholder="Mes">
+          <ion-select class="form_input"  [(ngModel)]="form.mes" name="mes" [interfaceOptions]="customAlertOptions" interface="alert" placeholder="Mes">
             <ion-select-option value="Enero">Enero</ion-select-option>
             <ion-select-option value="Febrero">Febrero</ion-select-option>
             <ion-select-option value="Marzo">Marzo</ion-select-option>
@@ -73,7 +56,8 @@
           </ion-select>
         </ion-item>
 
-        <!-- *** Viejo input lista "Recargo"
+        <!-- *** Viejo input lista "Recargo" -->
+        <!--
         <ion-item class="input_Ion-item">
           <ion-card-subtitle class="nombre_campo">Recargo: </ion-card-subtitle>
           <input class="form_input , list" list="si_no"  [(ngModel)]="form.recargo" name="recargo">
@@ -84,19 +68,22 @@
         </ion-item>
         -->
 
+        <!-- Item Recargo -->
         <ion-item class="input_Ion-item">
           <ion-label class="nombre_campo">Recargo:</ion-label>
-          <ion-select class="form_input , list" [(ngModel)]="form.recargo" name="recargo" [interfaceOptions]="customPopoverOptions" interface="popover" placeholder="Si/No">
+          <ion-select class="form_input" [(ngModel)]="form.recargo" name="recargo" [interfaceOptions]="customPopoverOptions" interface="popover" placeholder="Si/No">
             <ion-select-option value="Si">Si</ion-select-option>
             <ion-select-option value="No" selected="selected">No</ion-select-option>
           </ion-select>
         </ion-item>
 
+        <!-- Item Monto -->
         <ion-item class="input_Ion-item">
             <ion-card-subtitle class="nombre_campo">Monto: </ion-card-subtitle>
             $<ion-input class="form_input"  type="number" min="2" max="9" [(ngModel)]="form.monto" name="monto" maxlength="9" clearInput (ngModelChange)="change($event)"></ion-input>
         </ion-item>
 
+        <!-- Boton Subir datos, llama funcion que valida y envia datos al myslq service -->
         <button ion-button full (click)="subirDatos()" class="buttonAlumno" text-center margin>Subir datos</button>
         
 

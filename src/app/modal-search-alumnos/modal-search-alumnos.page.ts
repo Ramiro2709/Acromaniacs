@@ -1,8 +1,9 @@
 import { Component, OnInit, Injector } from '@angular/core';
 import { NavParams } from '@ionic/angular';
-import {ModalController } from '@ionic/angular';
+import {ModalController, AlertController } from '@ionic/angular';
 
 import {MySQLService} from '../../services/my-sql.service';
+import {AlertService} from '../../services/alert.service';
 
 @Component({
   selector: 'app-modal-search-alumnos',
@@ -15,16 +16,18 @@ export class ModalSearchAlumnosPage implements OnInit {
   alumnos: string[];
   TodosAlumnos: any[];
   MySql;
+  Alert;
+  error;
 
-  constructor(navParams: NavParams, private modalController: ModalController, public injector: Injector) { 
+  constructor(navParams: NavParams, private alertController: AlertController, private modalController: ModalController, public injector: Injector) { 
     this.MySql = injector.get(MySQLService);
+    this.Alert = injector.get(AlertService);
     //this.TodosAlumnos = this.MySql.AlumnosArray;
     
   }
 
   ngOnInit() {
     //this.TodosAlumnos = this.MySql.AlumnosArray;
-    // TODO: Arreglar, crearAlumnos se ejecuta antes que alla respuesta del servidor
     console.log("Init;");
     this.startModal();
     
@@ -32,7 +35,13 @@ export class ModalSearchAlumnosPage implements OnInit {
 
   startModal(){
     //this.MySql.GetAlumnos();
+    this.error = false;
     this.TodosAlumnos = new Array();
+    if(this.MySql.AlumnosArray.length == 0){
+      let alert1 = this.Alert.GetAlumnosError();
+      //alert1.present();
+      console.log("asd"); 
+    }
     this.crearAlumnos();
     this.initializeAlumnos();
   }
@@ -45,8 +54,11 @@ export class ModalSearchAlumnosPage implements OnInit {
     */
   }
 
+  
   crearAlumnos(){
     
+    
+
     for(let i=0;i<this.MySql.AlumnosArray.length;i++){
       var mysqlNombre:any;
       var mysqlApellido:any;
@@ -58,17 +70,26 @@ export class ModalSearchAlumnosPage implements OnInit {
       //console.log(mysqlApellido);
       //console.log(this.TodosAlumnos);
 
-      //TODO: arreglar esto
 
       //this.TodosAlumnos[i]['NombreApellido'] = mysqlNombre + " " + mysqlApellido;
       //this.TodosAlumnos[i]['idAlumno'] = this.MySql.AlumnosArray[i]['idAlumno'];
+      var monto = this.ObtenerMonto(i);
+
       this.TodosAlumnos.push({
         nombreApellido: mysqlNombre + " " + mysqlApellido,
-        idAlumno: this.MySql.AlumnosArray[i]['idAlumno']
+        idAlumno: this.MySql.AlumnosArray[i]['idAlumno'],
+        IdClaseAlumno : this.MySql.AlumnosArray[i]['IdClaseAlumno'],
+        horarioLunes:this.MySql.AlumnosArray[i]["horarioLunes"],
+        horarioMartes: this.MySql.AlumnosArray[i]["horarioMartes"],
+        horarioMiercoles: this.MySql.AlumnosArray[i]["horarioMiercoles"],
+        horarioJueves: this.MySql.AlumnosArray[i]["horarioJueves"],
+        horarioViernes: this.MySql.AlumnosArray[i]["horarioViernes"],
+        horarioSabado: this.MySql.AlumnosArray[i]["horarioSabado"],
+        monto: monto
       });
       
     }
-    console.log("TodosAlumnos"+this.TodosAlumnos);
+    //console.log("TodosAlumnos"+this.TodosAlumnos[26]['IdClaseAlumno']);
     
   }
 
@@ -86,6 +107,7 @@ export class ModalSearchAlumnosPage implements OnInit {
     ];
     */
     this.alumnos = this.TodosAlumnos;
+    //this.alumnos = this.MySql.AlumnosArray;
     console.log(this.alumnos);
     //console.log(this.alumnos[1]['nombre']);
     
@@ -109,16 +131,62 @@ export class ModalSearchAlumnosPage implements OnInit {
     }
   }
   
-  setAlumno(nombreApellido,idAlumno){
-    console.log("Nombre: "+nombreApellido+" ; idAlumno: "+idAlumno);
+  setAlumno(alumno){
+    console.log("Nombre: "+alumno.nombreApellido+" ; idAlumno: "+alumno.idAlumno+" ; IdClase: "+alumno.monto);
     this.modalController.dismiss({
-      'name': nombreApellido,
-      'idAlumno' : idAlumno
+      'name': alumno.nombreApellido,
+      'idAlumno' : alumno.idAlumno,
+      'monto' : alumno.monto
     });
   }
   
-  dismissModal(){
-    
+  public dismissModal(){
+    this.modalController.dismiss();
+  }
+
+  ObtenerMonto(i){
+    var CantClases = 0;
+    var Monto
+    if (this.MySql.AlumnosArray[i]["horarioLunes"] != "false"){
+      
+      CantClases++;
+      console.log("CantClases: "+CantClases);
+    }
+    if (this.MySql.AlumnosArray[i]["horarioMartes"] != "false"){CantClases++;}
+    if (this.MySql.AlumnosArray[i]["horarioMiercoles"] != "false"){CantClases++;}
+    if (this.MySql.AlumnosArray[i]["horarioJueves"] != "false"){CantClases++;}
+    if (this.MySql.AlumnosArray[i]["horarioViernes"] != "false"){CantClases++;}
+    if (this.MySql.AlumnosArray[i]["horarioSabado"] != "false"){CantClases++;}
+
+    switch(CantClases) { 
+      case 1: { 
+         Monto = 600;
+         break; 
+      } 
+      case 2: { 
+         Monto = 1000;
+         break; 
+      } 
+      case 3: { 
+        Monto = 1300;
+        break; 
+      }
+      case 4: { 
+        Monto = 1600;
+        break; 
+      }
+      case 5: { 
+        Monto = 1900;
+        break; 
+      }
+      default: { 
+         Monto = 0;
+         break; 
+      } 
+   } 
+
+   return Monto;
+
   }
 
 }
