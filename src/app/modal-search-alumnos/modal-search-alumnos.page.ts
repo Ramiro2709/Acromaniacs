@@ -58,8 +58,9 @@ export class ModalSearchAlumnosPage implements OnInit {
   crearAlumnos(){
     
     
-
-    for(let i=0;i<this.MySql.AlumnosArray.length;i++){
+    console.log(Object.keys(this.MySql.AlumnosArray).length);
+    for(let i=0;i<(Object.keys(this.MySql.AlumnosArray).length - 1);i++){
+      //console.log(this.MySql.AlumnosArray[i]['nombre']);
       var mysqlNombre:any;
       var mysqlApellido:any;
       if (this.MySql.AlumnosArray[i]['nombre'] == null){mysqlNombre = "null";}
@@ -75,6 +76,7 @@ export class ModalSearchAlumnosPage implements OnInit {
       //this.TodosAlumnos[i]['idAlumno'] = this.MySql.AlumnosArray[i]['idAlumno'];
       var monto = this.ObtenerMonto(i);
 
+
       this.TodosAlumnos.push({
         nombreApellido: mysqlNombre + " " + mysqlApellido,
         idAlumno: this.MySql.AlumnosArray[i]['idAlumno'],
@@ -85,7 +87,8 @@ export class ModalSearchAlumnosPage implements OnInit {
         horarioJueves: this.MySql.AlumnosArray[i]["horarioJueves"],
         horarioViernes: this.MySql.AlumnosArray[i]["horarioViernes"],
         horarioSabado: this.MySql.AlumnosArray[i]["horarioSabado"],
-        monto: monto
+        monto: monto,
+
       });
       
     }
@@ -147,16 +150,13 @@ export class ModalSearchAlumnosPage implements OnInit {
   ObtenerMonto(i){
     var CantClases = 0;
     var Monto
-    if (this.MySql.AlumnosArray[i]["horarioLunes"] != "false"){
-      
-      CantClases++;
-      console.log("CantClases: "+CantClases);
-    }
+    if (this.MySql.AlumnosArray[i]["horarioLunes"] != "false"){ CantClases++;}
     if (this.MySql.AlumnosArray[i]["horarioMartes"] != "false"){CantClases++;}
     if (this.MySql.AlumnosArray[i]["horarioMiercoles"] != "false"){CantClases++;}
     if (this.MySql.AlumnosArray[i]["horarioJueves"] != "false"){CantClases++;}
     if (this.MySql.AlumnosArray[i]["horarioViernes"] != "false"){CantClases++;}
     if (this.MySql.AlumnosArray[i]["horarioSabado"] != "false"){CantClases++;}
+    console.log(this.MySql.AlumnosArray[i] + " " +CantClases);
 
     switch(CantClases) { 
       case 1: { 
@@ -177,6 +177,10 @@ export class ModalSearchAlumnosPage implements OnInit {
       }
       case 5: { 
         Monto = 1900;
+        break; 
+      }
+      case 6: {
+        Monto = 2200;
         break; 
       }
       default: { 

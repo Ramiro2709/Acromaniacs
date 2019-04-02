@@ -80,7 +80,7 @@
         <!-- Item Monto -->
         <ion-item class="input_Ion-item">
             <ion-card-subtitle class="nombre_campo">Monto: </ion-card-subtitle>
-            $<ion-input class="form_input"  type="number" min="2" max="9" [(ngModel)]="form.monto" name="monto" maxlength="9" clearInput (ngModelChange)="change($event)"></ion-input>
+            $<ion-input class="form_input"  type="number" min="2" max="9" [(ngModel)]="form.monto" name="monto" maxlength="9" clearInput (ngModelChange)="change($event)" disabled=true></ion-input>
         </ion-item>
 
         <!-- Boton Subir datos, llama funcion que valida y envia datos al myslq service -->

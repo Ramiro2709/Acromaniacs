@@ -8,5 +8,20 @@
 </ion-header>
 
 <ion-content padding>
-  TODO: Crear vista de alumnos
+
+  <ion-list>
+    <ion-label class="nombre_campo">Lunes:</ion-label>
+      <ion-item *ngFor="let alumnoLunes of alumnosLunes">
+        <button ion-button full class="selectAlumno" text-center margin (click)="VerDatosAlumno(alumnoLunes)">
+            {{alumnoLunes.nombre}}
+        </button>
+    </ion-item>
+    <ion-label class="nombre_campo">Martes:</ion-label>
+    <ion-item *ngFor="let alumnoMartes of alumnosMartes">
+        <button ion-button full class="selectAlumno" text-center margin>
+            {{alumnoMartes.nombre}}
+        </button>
+    </ion-item>
+  </ion-list>
+
 </ion-content>

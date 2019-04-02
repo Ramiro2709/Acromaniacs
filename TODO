@@ -2,6 +2,8 @@
 * Vista Alumnos:
     - Vista de Alumnos, poder editarlos, eliminarlos, ver sus meses pagados
 
+    -***** Ver todos alumnos en lista, 1 o 2 columnas, separados por dias que asisten, preguntar
+
     - Al crear alumno, que se cierre la pestaña o se eliminen los datos para ingresar uno nuevo
 
 * Formulario Comprobantes:
@@ -16,13 +18,10 @@
     se actualizen los alumnos cada vez que se abre el modal y esperen al subscribe
 
 
-
-
-
-
 - Probar conectar desde el celular
 
 - Cambiar campo string "MesAbonado" a int de meses
+
 
 
 

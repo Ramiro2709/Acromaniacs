@@ -19,7 +19,7 @@ export class AlertService {
   }
 
   //Muestra error cuando algun input es incorrecto
-  async ShowError(mesCorrecto, recargoCorrecto, montoCorrecto, fechaCorrecta){
+  async ShowError(mesCorrecto, recargoCorrecto, montoCorrecto, fechaCorrecta, abonadoCorrecto){
     var errorMesagge = "";
     if (!fechaCorrecta){
       errorMesagge += 'Fecha incorrecta <br/>';
@@ -32,6 +32,9 @@ export class AlertService {
     }
     if (!montoCorrecto){
       errorMesagge += "Monto incorrecto \n";
+    }
+    if (!abonadoCorrecto){
+      errorMesagge += "Ese mes ya a sido abonado \n";
     }
 
     const alert = await this.alertController.create({

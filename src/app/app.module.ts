@@ -16,14 +16,18 @@ import { SQLite } from '@ionic-native/sqlite/ngx';
 import {SQLiteServiceService} from '../services/sqlite-service.service';
 
 import{ModalSearchAlumnosPage} from './modal-search-alumnos/modal-search-alumnos.page';
+import {VerDatosAlumnoPage} from './ver-datos-alumno/ver-datos-alumno.page';
 
 import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent,
-    ModalSearchAlumnosPage],
+    ModalSearchAlumnosPage,
+    VerDatosAlumnoPage
+  ],
   entryComponents: [
-    ModalSearchAlumnosPage
+    ModalSearchAlumnosPage,
+    VerDatosAlumnoPage
   ],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule],
   providers: [

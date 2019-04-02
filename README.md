@@ -21,6 +21,7 @@
   + tab2: Menu de alumnos
    - crear-alumno: formulario para crear alumno
    - ver-alumnos: Vista de los alumnos y sus comprobantes (por hacer)
+    - ver-datos-alumno: (por hacer)
 
   + tab3: (Nada por ahora)
     

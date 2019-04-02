@@ -110,6 +110,11 @@ export class MySQLService {
       var AlumnosObtenidos = data;
 
       var lenght = AlumnosObtenidos['lenght'];
+      //Agregar comprobantes
+      this.AlumnosArray = AlumnosObtenidos;
+      console.log(AlumnosObtenidos)
+
+      /*
       for(let i=0;i<lenght;i++){
         this.AlumnosArray.push({
           nombre: AlumnosObtenidos[i]['nombre'],
@@ -124,6 +129,7 @@ export class MySQLService {
           horarioSabado: AlumnosObtenidos[i]["horarioSabado"],
         });
       }
+      */
       
       //this.modal.startModal();
 

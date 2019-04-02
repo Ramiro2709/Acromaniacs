@@ -9,6 +9,7 @@ import {AlertService} from '../../services/alert.service';
 
 //import { DebugContext } from '@angular/core/src/view';
 import {ModalSearchAlumnosPage} from '../modal-search-alumnos/modal-search-alumnos.page';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-tab1',
@@ -37,7 +38,9 @@ export class Tab1Page {
     this.form.recargo = "No";
     this.MySql.GetAlumnos();
   }
-  ionViewDidLoad() {}
+  ionViewDidLoad() {
+    //TODO: Cambiar color de meses abonado o no abonados de cada alumno
+  }
 
   //Obtiene fecha de hoy y lo pone como predeterminado
   GetDate(){
@@ -60,6 +63,7 @@ export class Tab1Page {
     this.form.date = yyyy + "-" + mmVar + "-" +ddVar;
     console.log(this.form.date);
     this.form.anioAbonado = yyyy.toString();
+    this.SetMesAbonado(mm);
   }
 
   subirDatos(){
@@ -123,6 +127,7 @@ export class Tab1Page {
       var montoCorrecto = true;
     }
 
+    // *** Check Date
     if(this.form.date == ""){
       //console.log("Fecha incorrecta");
       var fechaCorrecta = false;
@@ -130,11 +135,37 @@ export class Tab1Page {
       var fechaCorrecta = true;
     }
 
-    if (montoCorrecto && recargoCorrecto && mesCorrecto && fechaCorrecta){
+    // **** Check Comprobante
+    var abonadoCorrecto = true;
+    // ++ Revisa el array de alumnos
+    for (let i=0;i < (Object.keys(this.MySql.AlumnosArray).length - 1) ;i++){
+      //console.log(this.MySql.AlumnosArray[i]['idAlumno']);
+      // ++ Si el id del alumno es igual al del formulario
+      if (this.MySql.AlumnosArray[i]['idAlumno'] == this.form.idAlumno){
+        //console.log(this.MySql.AlumnosArray[i]['idAlumno']);
+        // ++ Si no tiene comprobantes break
+        if (!this.MySql.AlumnosArray[i]['Comprobante']){
+          break;
+        }
+        // ++ Revisa todos sus comprobantes
+        for (let y=0; y < (Object.keys(this.MySql.AlumnosArray[i]['Comprobante']).length - 1); y++){
+          //console.log(this.MySql.AlumnosArray[i]['Comprobante']);
+          // ++ Si alguno es del mismo mes y año que el form
+          if (this.MySql.AlumnosArray[i]['Comprobante'][y]['MesAbonado'] == this.form.mes && this.MySql.AlumnosArray[i]['Comprobante'][y]['AnioAbonado'] == this.form.anioAbonado){
+            abonadoCorrecto = false;
+            //return;
+          }
+        }
+        break;
+      }
+    }
+
+
+    if (montoCorrecto && recargoCorrecto && mesCorrecto && fechaCorrecta && abonadoCorrecto){
       this.MySql.enviarBase(this.form.idAlumno,this.form.date, this.form.mes,this.form.anioAbonado,this.recargo,this.form.monto,this.form.name);
     } else{
       console.log("Error");
-      this.alertService.ShowError(mesCorrecto, recargoCorrecto, montoCorrecto, fechaCorrecta);
+      this.alertService.ShowError(mesCorrecto, recargoCorrecto, montoCorrecto, fechaCorrecta, abonadoCorrecto);
     }
   }
 
@@ -153,7 +184,28 @@ export class Tab1Page {
       this.form.idAlumno = data.idAlumno;
       this.form.monto = data.monto;
     }
-    
+  }
+
+  SetMesAbonado(mm){
+    //TODO: Mes predeterminado sea el ultimo sin pagar
+    console.log(mm);
+    //var predfMes;
+    switch(mm) { 
+      case 1: { this.form.mes = "Enero"; break; } 
+      case 2: { this.form.mes = "Febrero"; break; } 
+      case 3: { this.form.mes = "Marzo"; break; } 
+      case 4: { this.form.mes = "Abril"; break; } 
+      case 5: { this.form.mes = "JMayo"; break; }
+      case 6: { this.form.mes = "Junio"; break; } 
+      case 7: { this.form.mes = "Julio"; break; } 
+      case 8: { this.form.mes = "Agosto"; break; } 
+      case 9: { this.form.mes = "Septiembre"; break; } 
+      case 10: { this.form.mes = "Octubre"; break; } 
+      case 11: { this.form.mes = "Noviembre"; break; } 
+      case 12: { this.form.mes = "Diciembre"; break; } 
+      default: { this.form.mes = "error"; break; } 
+    }
+    //this.form.mes == 
   }
 }
 
