@@ -6,4 +6,10 @@
 
 <ion-content padding>
 
+  <h2>Nombre: {{alumno.nombre}}</h2>
+  <h2>Apellido: {{alumno.apellido}}</h2>
+  <h1>Clases</h1>
+  <h3 *ngFor="let clases of alumno"></h3>
+
+
 </ion-content>

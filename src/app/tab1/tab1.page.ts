@@ -61,7 +61,7 @@ export class Tab1Page {
       mmVar = mm;
     }
     this.form.date = yyyy + "-" + mmVar + "-" +ddVar;
-    console.log(this.form.date);
+    //console.log(this.form.date);
     this.form.anioAbonado = yyyy.toString();
     this.SetMesAbonado(mm);
   }
@@ -138,6 +138,7 @@ export class Tab1Page {
     // **** Check Comprobante
     var abonadoCorrecto = true;
     // ++ Revisa el array de alumnos
+    //console.log(Object.keys(this.MySql.AlumnosArray).length);
     for (let i=0;i < (Object.keys(this.MySql.AlumnosArray).length - 1) ;i++){
       //console.log(this.MySql.AlumnosArray[i]['idAlumno']);
       // ++ Si el id del alumno es igual al del formulario
@@ -148,11 +149,14 @@ export class Tab1Page {
           break;
         }
         // ++ Revisa todos sus comprobantes
-        for (let y=0; y < (Object.keys(this.MySql.AlumnosArray[i]['Comprobante']).length - 1); y++){
+        console.log((Object.keys(this.MySql.AlumnosArray[i]['Comprobante']).length));
+        for (let y=0; y < (Object.keys(this.MySql.AlumnosArray[i]['Comprobante']).length); y++){
           //console.log(this.MySql.AlumnosArray[i]['Comprobante']);
           // ++ Si alguno es del mismo mes y año que el form
+          //console.log(this.MySql.AlumnosArray[i]['Comprobante'][y]['MesAbonado']+ " == "+ this.form.mes +" ; "+ this.MySql.AlumnosArray[i]['Comprobante'][y]['AnioAbonado'] + " == "+ this.form.anioAbonado);
           if (this.MySql.AlumnosArray[i]['Comprobante'][y]['MesAbonado'] == this.form.mes && this.MySql.AlumnosArray[i]['Comprobante'][y]['AnioAbonado'] == this.form.anioAbonado){
             abonadoCorrecto = false;
+            //console.log("FALSOOO");
             //return;
           }
         }
@@ -188,7 +192,7 @@ export class Tab1Page {
 
   SetMesAbonado(mm){
     //TODO: Mes predeterminado sea el ultimo sin pagar
-    console.log(mm);
+    //console.log(mm);
     //var predfMes;
     switch(mm) { 
       case 1: { this.form.mes = "Enero"; break; } 

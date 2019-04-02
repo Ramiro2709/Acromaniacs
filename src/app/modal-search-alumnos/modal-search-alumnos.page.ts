@@ -27,8 +27,8 @@ export class ModalSearchAlumnosPage implements OnInit {
   }
 
   ngOnInit() {
-    //this.TodosAlumnos = this.MySql.AlumnosArray;
-    console.log("Init;");
+    
+    //console.log("Init;");
     this.startModal();
     
   }
@@ -57,8 +57,10 @@ export class ModalSearchAlumnosPage implements OnInit {
   
   crearAlumnos(){
     
-    
-    console.log(Object.keys(this.MySql.AlumnosArray).length);
+    this.TodosAlumnos = this.MySql.AlumnosArray;
+
+    //console.log(Object.keys(this.MySql.AlumnosArray).length);
+    //TODO: lengh ?
     for(let i=0;i<(Object.keys(this.MySql.AlumnosArray).length - 1);i++){
       //console.log(this.MySql.AlumnosArray[i]['nombre']);
       var mysqlNombre:any;
@@ -69,14 +71,15 @@ export class ModalSearchAlumnosPage implements OnInit {
       else {mysqlApellido = this.MySql.AlumnosArray[i]['apellido'];}
       //console.log(mysqlNombre);
       //console.log(mysqlApellido);
-      //console.log(this.TodosAlumnos);
+      //console.log(this.TodosAlumnos +" "+i);
 
 
-      //this.TodosAlumnos[i]['NombreApellido'] = mysqlNombre + " " + mysqlApellido;
+      this.TodosAlumnos[i]['NombreApellido'] = mysqlNombre + " " + mysqlApellido;
       //this.TodosAlumnos[i]['idAlumno'] = this.MySql.AlumnosArray[i]['idAlumno'];
       var monto = this.ObtenerMonto(i);
+      this.TodosAlumnos[i]['monto'] = monto;
 
-
+      /*
       this.TodosAlumnos.push({
         nombreApellido: mysqlNombre + " " + mysqlApellido,
         idAlumno: this.MySql.AlumnosArray[i]['idAlumno'],
@@ -88,8 +91,8 @@ export class ModalSearchAlumnosPage implements OnInit {
         horarioViernes: this.MySql.AlumnosArray[i]["horarioViernes"],
         horarioSabado: this.MySql.AlumnosArray[i]["horarioSabado"],
         monto: monto,
-
       });
+      */
       
     }
     //console.log("TodosAlumnos"+this.TodosAlumnos[26]['IdClaseAlumno']);
@@ -111,7 +114,7 @@ export class ModalSearchAlumnosPage implements OnInit {
     */
     this.alumnos = this.TodosAlumnos;
     //this.alumnos = this.MySql.AlumnosArray;
-    console.log(this.alumnos);
+    //console.log(this.alumnos);
     //console.log(this.alumnos[1]['nombre']);
     
   }
@@ -135,9 +138,9 @@ export class ModalSearchAlumnosPage implements OnInit {
   }
   
   setAlumno(alumno){
-    console.log("Nombre: "+alumno.nombreApellido+" ; idAlumno: "+alumno.idAlumno+" ; IdClase: "+alumno.monto);
+    //console.log("Nombre: "+alumno.NombreApellido+" ; idAlumno: "+alumno.idAlumno+" ; IdClase: "+alumno.monto);
     this.modalController.dismiss({
-      'name': alumno.nombreApellido,
+      'name': alumno.NombreApellido,
       'idAlumno' : alumno.idAlumno,
       'monto' : alumno.monto
     });
@@ -150,13 +153,13 @@ export class ModalSearchAlumnosPage implements OnInit {
   ObtenerMonto(i){
     var CantClases = 0;
     var Monto
-    if (this.MySql.AlumnosArray[i]["horarioLunes"] != "false"){ CantClases++;}
-    if (this.MySql.AlumnosArray[i]["horarioMartes"] != "false"){CantClases++;}
-    if (this.MySql.AlumnosArray[i]["horarioMiercoles"] != "false"){CantClases++;}
-    if (this.MySql.AlumnosArray[i]["horarioJueves"] != "false"){CantClases++;}
-    if (this.MySql.AlumnosArray[i]["horarioViernes"] != "false"){CantClases++;}
-    if (this.MySql.AlumnosArray[i]["horarioSabado"] != "false"){CantClases++;}
-    console.log(this.MySql.AlumnosArray[i] + " " +CantClases);
+    if (this.MySql.AlumnosArray[i]["Clases"]["horarioLunes"] != "false"){ CantClases++;}
+    if (this.MySql.AlumnosArray[i]["Clases"]["horarioMartes"] != "false"){CantClases++;}
+    if (this.MySql.AlumnosArray[i]["Clases"]["horarioMiercoles"] != "false"){CantClases++;}
+    if (this.MySql.AlumnosArray[i]["Clases"]["horarioJueves"] != "false"){CantClases++;}
+    if (this.MySql.AlumnosArray[i]["Clases"]["horarioViernes"] != "false"){CantClases++;}
+    if (this.MySql.AlumnosArray[i]["Clases"]["horarioSabado"] != "false"){CantClases++;}
+    //console.log(this.MySql.AlumnosArray[i] + " " +CantClases);
 
     switch(CantClases) { 
       case 1: { 

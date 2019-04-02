@@ -141,7 +141,7 @@ export class AlertService {
       duration: 5000,
     }).then(a => {
       a.present().then(() => { //Lo presenta, generalmente tarda
-        console.log('presented');
+        //console.log('presented');
         if (!this.isLoading) { //Si dismiss() ya fue llamado, (es mas rapido que present())
           a.dismiss().then(() => console.log('abort presenting')); //dismiss loading
         }

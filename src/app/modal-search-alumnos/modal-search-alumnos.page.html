@@ -12,10 +12,10 @@
       </button>
     <ion-searchbar placeholder="Alumno" (ionInput)="getAlumnos($event)"></ion-searchbar>
   </ion-item>
-  <!-- List con botones de alumnos generados -->
+  <!-- List con botones de alumnos generados      *ngFor="let key of alumnos.keys(objs)"  {{key}} ; {{objs[key] | json}}-->
   <ion-list>
-    <button *ngFor="let alumno of alumnos" ion-button full (click)="setAlumno(alumno)" class="selectAlumno" text-center margin>
-        {{alumno.nombreApellido}}
+    <button  *ngFor="let alumno of alumnos" ion-button full (click)="setAlumno(alumno)" class="selectAlumno" text-center margin>
+        {{alumno.NombreApellido}}
     </button>
   </ion-list>
 </ion-content>

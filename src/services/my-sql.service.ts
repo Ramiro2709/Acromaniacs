@@ -59,6 +59,7 @@ export class MySQLService {
       //console.log("Subscribe Post");
       this.alertService.dismiss();
       this.alertService.AltaExitosa(IdAlumno, Fecha, MesAbonado, Recargo, Monto,NombreApellido);
+      this.GetAlumnos();
     },
     (error : any) =>
     {
@@ -77,16 +78,18 @@ export class MySQLService {
     .subscribe((data : any) =>
     {
       //console.log("Subscribe Post");
+      this.GetAlumnos();
       this.alertService.dismiss();
       this.alertService.AltaAlumnoExitosa();
-      this.GetAlumnos();
     },
     (error : any) =>
     {
       //console.log("Error POST");
+      this.GetAlumnos();
       console.log(error);
       this.alertService.dismiss();
       this.alertService.AltaAlumnoError();
+      
     });
   }
   /*
@@ -112,7 +115,7 @@ export class MySQLService {
       var lenght = AlumnosObtenidos['lenght'];
       //Agregar comprobantes
       this.AlumnosArray = AlumnosObtenidos;
-      console.log(AlumnosObtenidos)
+      //console.log(AlumnosObtenidos)
 
       /*
       for(let i=0;i<lenght;i++){
@@ -132,8 +135,9 @@ export class MySQLService {
       */
       
       //this.modal.startModal();
-
+      this.AlumnosArray = this.objectToArray(this.AlumnosArray)
       console.log(this.AlumnosArray);
+      
     },
     (error : any) =>
     {
@@ -142,6 +146,16 @@ export class MySQLService {
     });
 
   }
+
+  objectToArray = function(obj) {
+    var arr =[];
+    for(let o in obj) {
+      if (obj.hasOwnProperty(o)) {
+        arr.push(obj[o]);
+      }
+    }
+    return arr;
+  };
 
 
   

@@ -1,4 +1,8 @@
 
+**** Arreglar como se actualizan los datos, teniendo en cuenta que varios usuarios lo van a usar
+
+**** Actualizar comprobantes del alumno cuando se carga uno
+
 * Vista Alumnos:
     - Vista de Alumnos, poder editarlos, eliminarlos, ver sus meses pagados
 
@@ -17,10 +21,12 @@
     - Si otro celular carga alumno, no se le actualiza al resto, arreglar, tratar ver como hacer que  
     se actualizen los alumnos cada vez que se abre el modal y esperen al subscribe
 
+    - BUG: Al mostrar alumnos aparece un cuadro vacio al ultimo (elemento demas mysql.arrayAlumnos ?)
 
-- Probar conectar desde el celular
 
-- Cambiar campo string "MesAbonado" a int de meses
+
+
+-? Cambiar campo string "MesAbonado" a int de meses
 
 
 
@@ -28,6 +34,7 @@
 
 * Terminados
 
+------------------------------------------ Probar conectar desde el celular
 ---------- Terminar Alta de alumno
     ---------------------------- Si se selecciona clase Lunes-Miercoles, desabilitar Martes-Jueves, idem al reves
     ---------------------------- Formulario de alumno: Desabilitar horario, habilitar cuando se selecciona dia, poner horarios especificos de cada dia, agregar al formulario
