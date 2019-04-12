@@ -1,14 +1,21 @@
 
+**** Iniciar en Tab3 (menu), cargar alumnos cuando inicia menu
+
+*** agregar un menu principal (con tab en el medio) con 3 cosos (Crear comprobante, ver alumno, crear alumno)
+
 **** Arreglar como se actualizan los datos, teniendo en cuenta que varios usuarios lo van a usar
 
 **** Actualizar comprobantes del alumno cuando se carga uno
 
 * Vista Alumnos:
+
+    - *** muestre todos alumnos, filtros que muestre los alumnos que van tal dia
+
     - Vista de Alumnos, poder editarlos, eliminarlos, ver sus meses pagados
 
-    -***** Ver todos alumnos en lista, 1 o 2 columnas, separados por dias que asisten, preguntar
-
     - Al crear alumno, que se cierre la pestaña o se eliminen los datos para ingresar uno nuevo
+
+    - Arregar buscador
 
 * Formulario Comprobantes:
     - Mes a abonar predefinido sea el ultimo sin pagar, al mostrar la lista muestre en diferentes
@@ -16,14 +23,16 @@
 
     - Agregar ion select con forma de pago, transferencia, tarjeta, efectivo (No en comprobante)
 
-    - Cambiar opacidad de nombre disable a 1
+    - Cambiar opacidad de nombre disable a 1, o sacar input
+
+    - Actualizar cuando se abre vista de alumnos
 
     - Si otro celular carga alumno, no se le actualiza al resto, arreglar, tratar ver como hacer que  
     se actualizen los alumnos cada vez que se abre el modal y esperen al subscribe
 
+    - Hacer funcional recargo, en ver recargo cambiar 0 por "No"
+
     - BUG: Al mostrar alumnos aparece un cuadro vacio al ultimo (elemento demas mysql.arrayAlumnos ?)
-
-
 
 
 -? Cambiar campo string "MesAbonado" a int de meses
@@ -34,6 +43,8 @@
 
 * Terminados
 
+-------------------- Quitar id comprobante
+----------------------------- Recargar comprobantes cuando se ve alumnos, cuando se genera uno
 ------------------------------------------ Probar conectar desde el celular
 ---------- Terminar Alta de alumno
     ---------------------------- Si se selecciona clase Lunes-Miercoles, desabilitar Martes-Jueves, idem al reves

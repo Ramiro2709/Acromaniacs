@@ -19,11 +19,19 @@ export class VerAlumnosPage implements OnInit {
     
   }
 
+  //Se carga cuando entra la vista
+  ionViewWillEnter(){
+    console.log("Entro vista");
+    this.IniciarAlumnos();
+  }
+
   ngOnInit() {
     this.MySql = this.injector.get(MySQLService);
-    this.alumnos = this.MySql.AlumnosArray;
-    console.log(this.alumnos);
+    this.IniciarAlumnos();
+    
+    console.log(this.alumnos[0]);
 
+    /*
     this.alumnosLunes = new Array();
     this.alumnosMartes = new Array();
 
@@ -36,10 +44,18 @@ export class VerAlumnosPage implements OnInit {
         this.alumnosMartes.push(this.alumnos[i]);
       }
     }
-    console.log(this.alumnosMartes);
+    console.log(this.alumnosLunes[0]);
+    //console.log(this.alumnosMartes);
+    */
+  }
+
+  public IniciarAlumnos(){
+    this.alumnos = this.MySql.AlumnosArray;
+    console.log(this.alumnos);
   }
 
   async VerDatosAlumno(alumno) {
+    console.log(alumno);
     const modal = await this.modalController.create({
       component: VerDatosAlumnoPage,
       componentProps: { alumno: alumno }

@@ -37,7 +37,10 @@ export class MySQLService {
       })
     };
 
+
   }
+
+  
 
   enviarBase(IdAlumno: number, Fecha: Date, MesAbonado: string,anioAbonado, Recargo: boolean, Monto: number, NombreApellido: string){
     //console.log(Recargo);
@@ -59,7 +62,8 @@ export class MySQLService {
       //console.log("Subscribe Post");
       this.alertService.dismiss();
       this.alertService.AltaExitosa(IdAlumno, Fecha, MesAbonado, Recargo, Monto,NombreApellido);
-      this.GetAlumnos();
+      this.GetAlumnos(); //Actualiza alumnos
+      
     },
     (error : any) =>
     {

@@ -14,6 +14,10 @@
 
 
 * Paginas: src/app
+
+  + tabs: Pagina padre de las tabs
+    - tabs.router.module.ts: Controla direcciones de tabs
+
   + tab1: formulario de comprobantes
     tab1.page.ts: Manda datos al servicio mysql, carga modal
     - modal-search-alumnos: modal con seleccion y buscador de alumnos
@@ -23,7 +27,8 @@
    - ver-alumnos: Vista de los alumnos y sus comprobantes (por hacer)
     - ver-datos-alumno: (por hacer)
 
-  + tab3: (Nada por ahora)
+  + tab3: Menu principal
+    Redirecciona a las otras paginas
     
 * Estilos
     - global: src/global.scss

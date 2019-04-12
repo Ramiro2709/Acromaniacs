@@ -6,10 +6,34 @@
 
 <ion-content padding>
 
-  <h2>Nombre: {{alumno.nombre}}</h2>
-  <h2>Apellido: {{alumno.apellido}}</h2>
+  <h2>Nombre: {{alumno.nombre}}</h2> <!-- Nombre -->
+  <h2>Apellido: {{alumno.apellido}}</h2> <!-- Apellido -->
   <h1>Clases</h1>
-  <h3 *ngFor="let clases of alumno"></h3>
+  <h3 [hidden]="lunesHidden">Lunes {{alumno.Clases.horarioLunes}}</h3>
+  <h3 [hidden]="martesHidden" >Martes {{alumno.Clases.horarioMartes}}</h3>
+  <h3 [hidden]="miercolesHidden" >Miercoles {{alumno.Clases.horarioMiercoles}}</h3>
+  <h3 [hidden]="juevesHidden" >Jueves {{alumno.Clases.horarioJueves}}</h3>
+  <h3 [hidden]="viernesHidden" >Viernes {{alumno.Clases.horarioViernes}}</h3>
+  <h3 [hidden]="sabadoHidden" >Sabado {{alumno.Clases.horarioSabado}}</h3>
 
+  <ion-list>
+    <ion-label>Comprobantes</ion-label>
+    <ion-item *ngFor="let comp of arrayComprobantes">
+      <ion-item-group>
+        <!--  <h4>ID comprobante: {{comp.IdComp}}  </h4> -->
+        <h4>Mes Abonado: {{comp.MesAbonado}} {{comp.AnioAbonado}}    </h4>
+        <h4>Recargo: {{comp.Recargo}}   </h4>
+      </ion-item-group>
+      <ion-item-group>
+        <h4>Fecha: {{comp.Fecha}}   </h4>
+        <h4>Monto: {{comp.Monto}}   </h4>
+        <button ion-button full class="selectAlumno" text-center margin (click)="generarPDF(comp,alumno.idAlumno)">
+          Generar PDF
+        </button>
+      </ion-item-group>
+    </ion-item>
+  </ion-list>
+  
+  
 
 </ion-content>
