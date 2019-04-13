@@ -25,6 +25,7 @@ export class Tab1Page {
     name: null,
     idAlumno: null,
     mes: null,
+    mesNumero : null,
     anioAbonado: null,
     recargo: null,
     monto: null
@@ -32,11 +33,17 @@ export class Tab1Page {
   today = new Date();
   pdfObj = null;
   recargo;
+  valorRecargo;
+  mesNumToSting;
+  mesFormToNum;
+  // Podria ponerse en un obj
+  mm : number; yyyy : number;
  
   constructor(private plt: Platform,  private MySql: MySQLService, private changeDet: ChangeDetectorRef, private alertController: AlertController, private alertService: AlertService, private modalController: ModalController) {
     this.GetDate();
     this.form.recargo = "No";
     this.MySql.GetAlumnos();
+    this.valorRecargo = 100;
   }
   ionViewDidLoad() {
     //TODO: Cambiar color de meses abonado o no abonados de cada alumno
@@ -45,8 +52,8 @@ export class Tab1Page {
   //Obtiene fecha de hoy y lo pone como predeterminado
   GetDate(){
     var dd = this.today.getDate();
-    var mm = this.today.getMonth()+1; //January is 0!
-    var yyyy = this.today.getFullYear();
+    this.mm = this.today.getMonth()+1; //January is 0!
+    this.yyyy = this.today.getFullYear();
     var ddVar:any;
     var mmVar:any;
     if(dd<10) {
@@ -55,22 +62,20 @@ export class Tab1Page {
       ddVar = dd;
     }
 
-    if(mm<10) {
-        mmVar = '0'+mm.toString();
+    if(this.mm<10) {
+        mmVar = '0'+this.mm.toString();
     } else {
-      mmVar = mm;
+      mmVar = this.mm;
     }
-    this.form.date = yyyy + "-" + mmVar + "-" +ddVar;
+    this.form.date = this.yyyy + "-" + mmVar + "-" +ddVar;
     //console.log(this.form.date);
-    this.form.anioAbonado = yyyy.toString();
-    this.SetMesAbonado(mm);
+    this.form.anioAbonado = this.yyyy.toString();
+    this.SetMesAbonado(this.mm);
   }
 
   subirDatos(){
     this.RecargoBool();
     this.ValidarYEnviar();
-    //this.MySql.enviarBase(1,this.form.date, this.form.mes,this.recargo,this.form.monto);
-    //this.createPdf(); 
   }
   
   RecargoBool(){
@@ -81,29 +86,6 @@ export class Tab1Page {
       this.recargo = false;
     }
     //console.log(this.recargo);
-  }
-
-  change(value){
-    /*
-    //manually launch change detection
-    this.changeDet.detectChanges();
-    //console.log(value);
-    var valueString;
-    valueString = value.toString();
-    //valueString = valueString + ' ';
-    var lastChar = valueString.substring(valueString.length - 1);
-    //console.log(lastChar);
-    //lastChar = lastChar.substring(lastChar.length() - 1); 
-    //console.log(lastChar);
-
-    if(value > 1000000){
-      
-      valueString = valueString.substring(0,7);
-      this.form.monto = parseInt(valueString);
-    }
-
-    //this.form.monto = value.length > 8 ? value.substring(0,8) : value;
-    */
   }
 
   ValidarYEnviar(){
@@ -156,7 +138,6 @@ export class Tab1Page {
           //console.log(this.MySql.AlumnosArray[i]['Comprobante'][y]['MesAbonado']+ " == "+ this.form.mes +" ; "+ this.MySql.AlumnosArray[i]['Comprobante'][y]['AnioAbonado'] + " == "+ this.form.anioAbonado);
           if (this.MySql.AlumnosArray[i]['Comprobante'][y]['MesAbonado'] == this.form.mes && this.MySql.AlumnosArray[i]['Comprobante'][y]['AnioAbonado'] == this.form.anioAbonado){
             abonadoCorrecto = false;
-            //console.log("FALSOOO");
             //return;
           }
         }
@@ -186,7 +167,28 @@ export class Tab1Page {
     if (data != null){
       this.form.name = data.name;
       this.form.idAlumno = data.idAlumno;
-      this.form.monto = data.monto;
+      // NOTE: Suma el recargo al monto si es true
+      var recargo = 0;
+      if (this.form.recargo == "Si"){recargo = this.valorRecargo} // Cantidad de recargo
+      this.form.monto = data.monto + recargo;
+    }
+  }
+
+  CambioRecargo(){
+    // NOTE: Cuando el select "recargo" es cambiado cambia el monto
+    //console.log("CambioRecargo");
+    if (this.form.recargo == "Si") {this.form.monto += this.valorRecargo}
+    else {this.form.monto -= this.valorRecargo}
+  }
+
+  CambioMesAbonado(){
+    // NOTE: Si el mes seleccionado, es mayor al mes actual, y el año es mayor o igual, se aplica recargo
+    this.MesStringToNumber();
+    if (this.mesFormToNum > this.mm && Number(this.form.anioAbonado) == this.yyyy || Number(this.form.anioAbonado) > this.yyyy){
+      //console.log("Se aplica recargo");
+      this.form.recargo = "Si";
+    } else {
+      this.form.recargo = "No";
     }
   }
 
@@ -194,22 +196,41 @@ export class Tab1Page {
     //TODO: Mes predeterminado sea el ultimo sin pagar
     //console.log(mm);
     //var predfMes;
+    this.form.mesNumero = mm;
     switch(mm) { 
-      case 1: { this.form.mes = "Enero"; break; } 
-      case 2: { this.form.mes = "Febrero"; break; } 
-      case 3: { this.form.mes = "Marzo"; break; } 
-      case 4: { this.form.mes = "Abril"; break; } 
-      case 5: { this.form.mes = "JMayo"; break; }
-      case 6: { this.form.mes = "Junio"; break; } 
-      case 7: { this.form.mes = "Julio"; break; } 
-      case 8: { this.form.mes = "Agosto"; break; } 
-      case 9: { this.form.mes = "Septiembre"; break; } 
-      case 10: { this.form.mes = "Octubre"; break; } 
-      case 11: { this.form.mes = "Noviembre"; break; } 
-      case 12: { this.form.mes = "Diciembre"; break; } 
-      default: { this.form.mes = "error"; break; } 
+      case 1: { this.mesNumToSting = "Enero";  this.form.mes = this.mesNumToSting; break; } 
+      case 2: { this.mesNumToSting = "Febrero"; this.form.mes = this.mesNumToSting; break; } 
+      case 3: { this.mesNumToSting = "Marzo"; this.form.mes = this.mesNumToSting; break; } 
+      case 4: { this.mesNumToSting = "Abril"; this.form.mes = this.mesNumToSting; break; } 
+      case 5: { this.mesNumToSting = "Mayo"; this.form.mes = this.mesNumToSting; break; }
+      case 6: { this.mesNumToSting = "Junio"; this.form.mes = this.mesNumToSting; break; } 
+      case 7: { this.mesNumToSting = "Julio"; this.form.mes = this.mesNumToSting; break; } 
+      case 8: { this.mesNumToSting = "Agosto"; this.form.mes = this.mesNumToSting; break; } 
+      case 9: { this.mesNumToSting = "Septiembre"; this.form.mes = this.mesNumToSting; break; } 
+      case 10: { this.mesNumToSting = "Octubre"; this.form.mes = this.mesNumToSting; break; } 
+      case 11: { this.mesNumToSting = "Noviembre"; this.form.mes = this.mesNumToSting; break; } 
+      case 12: { this.mesNumToSting = "Diciembre"; this.form.mes = this.mesNumToSting; break; } 
+      default: { this.mesNumToSting = "error"; break; } 
     }
     //this.form.mes == 
+  }
+
+  MesStringToNumber(){
+    switch(this.form.mes) { 
+      case "Enero": { this.mesFormToNum = 1; break; } 
+      case "Febrero": { this.mesFormToNum = 2; break; } 
+      case "Marzo": { this.mesFormToNum = 3; break; } 
+      case "Abril": { this.mesFormToNum = 4; break; } 
+      case "Mayo": { this.mesFormToNum = 5; break; }
+      case "Junio": { this.mesFormToNum = 6; break; } 
+      case "Julio": { this.mesFormToNum = 7; break; } 
+      case "Agosto": { this.mesFormToNum = 8; break; } 
+      case "Septiembre": { this.mesFormToNum = 9; break; } 
+      case "Octubre": { this.mesFormToNum = 10; break; } 
+      case "Noviembre": { this.mesFormToNum = 11; break; } 
+      case "Diciembre": { this.mesFormToNum = 12; break; } 
+      default: {  this.mesFormToNum = 0; break; } 
+    }
   }
 }
 

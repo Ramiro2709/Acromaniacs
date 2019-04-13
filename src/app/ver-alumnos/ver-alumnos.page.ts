@@ -2,6 +2,7 @@ import { Component, OnInit, Injector } from '@angular/core';
 import {ModalController } from '@ionic/angular';
 
 import {MySQLService} from '../../services/my-sql.service';
+import {AlertService} from '../../services/alert.service';
 
 import {VerDatosAlumnoPage} from '../ver-datos-alumno/ver-datos-alumno.page';
 
@@ -11,12 +12,12 @@ import {VerDatosAlumnoPage} from '../ver-datos-alumno/ver-datos-alumno.page';
   styleUrls: ['./ver-alumnos.page.scss'],
 })
 export class VerAlumnosPage implements OnInit {
-  MySql;
+  MySql; Alerts;
   alumnos: string[];
   alumnosMartes: string[];
   alumnosLunes : string[];
   constructor(public injector: Injector, private modalController: ModalController) { 
-    
+    this.Alerts = injector.get(AlertService);
   }
 
   //Se carga cuando entra la vista
@@ -27,6 +28,11 @@ export class VerAlumnosPage implements OnInit {
 
   ngOnInit() {
     this.MySql = this.injector.get(MySQLService);
+    if(this.MySql.AlumnosArray.length == 0){
+      // ** Si no hay alumnos en el array (mysqlService), muestra alert (alertservice)
+      let alert1 = this.Alerts.GetAlumnosError();
+    }
+    
     this.IniciarAlumnos();
     
     console.log(this.alumnos[0]);
@@ -50,6 +56,7 @@ export class VerAlumnosPage implements OnInit {
   }
 
   public IniciarAlumnos(){
+    
     this.alumnos = this.MySql.AlumnosArray;
     console.log(this.alumnos);
   }

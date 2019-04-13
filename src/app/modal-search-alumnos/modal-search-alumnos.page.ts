@@ -38,9 +38,9 @@ export class ModalSearchAlumnosPage implements OnInit {
     this.error = false;
     this.TodosAlumnos = new Array();
     if(this.MySql.AlumnosArray.length == 0){
+      // ** Si no hay alumnos en el array (mysqlService), muestra alert (alertservice)
       let alert1 = this.Alert.GetAlumnosError();
       //alert1.present();
-      console.log("asd"); 
     }
     this.crearAlumnos();
     this.initializeAlumnos();
