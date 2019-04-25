@@ -68,6 +68,10 @@ export class VerAlumnosPage implements OnInit {
       componentProps: { alumno: alumno }
     });
     await modal.present();
+    await modal.onDidDismiss(); //Cuando el modal se cierra
+    //TODO Al confirmar alert recargar alumnos, Ver Obserbables
+    //this.IniciarAlumnos();
+    //console.log("On did dismiss");
   }
 
 }

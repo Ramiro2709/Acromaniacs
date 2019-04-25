@@ -12,10 +12,14 @@ import { ModalSearchAlumnosPage } from 'src/app/modal-search-alumnos/modal-searc
 })
 export class AlertService {
   pDFMakerService : any;
-  mySQLService;
+  mySQL : any;
   constructor(private alertController: AlertController, public injector: Injector, public loadingCtrl:LoadingController, public modalCtrl: ModalController) { 
-    this.pDFMakerService = injector.get(PDFMakerService);
-    this.mySQLService = injector.get(MySQLService);
+    
+    this.IniciarInjectores();
+  }
+  IniciarInjectores(){
+    this.pDFMakerService = this.injector.get(PDFMakerService);
+    this.mySQL = this.injector.get(MySQLService);
   }
 
   //Muestra error cuando algun input es incorrecto
@@ -135,6 +139,12 @@ export class AlertService {
 
   isLoading = false;
 
+  
+
+  BoolEliminarAlumno(){
+    this.mySQL.BoolEliminarAlumno();
+  }
+
   async present() {
     this.isLoading = true; //Asigna bool de que empezo a cargar
     return await this.loadingCtrl.create({ //(con await) crea loading
@@ -156,7 +166,7 @@ export class AlertService {
     );
   }
 
-  //TODO?: Agregar mas campos a los alumnos
+  //TODO?: Agregar mas campos a los alumnos No anda?
   async CrearAlumnoPrompt() {
     const alert = await this.alertController.create({
       header: 'Crear Alumno',
@@ -183,7 +193,7 @@ export class AlertService {
         }, {
           text: 'Crear Alumno',
           handler: data => { //data: inputs
-            this.mySQLService.AltaAlumno(data.nombre,data.apellido);
+            //this.mySQL.AltaAlumno(data.nombre,data.apellido);
           }
         }
       ]

@@ -2,6 +2,8 @@ import { Component, OnInit, Injector } from '@angular/core';
 
 import {PDFMakerService} from '../../services/pdfmaker.service';
 import {MySQLService} from '../../services/my-sql.service';
+import {AlertService} from '../../services/alert.service'
+import {AlertToMysqlServiceService} from '../../services/alert-to-mysql-service.service';
 
 import {ModalController, AlertController } from '@ionic/angular';
 
@@ -23,10 +25,11 @@ export class VerDatosAlumnoPage implements OnInit {
   viernesHidden;
   sabadoHidden;
 
-  MySql;
+  MySql; alerts2;
 
   constructor(private PDF: PDFMakerService, public injector: Injector, private modalController: ModalController) {
     this.MySql = this.injector.get(MySQLService);
+    this.alerts2 = this.injector.get(AlertToMysqlServiceService);
    }
 
   ngOnInit() {
@@ -84,9 +87,10 @@ export class VerDatosAlumnoPage implements OnInit {
 
   EliminarAlumno(){
     console.log(this.alumno.idAlumno);
-    this.MySql.EliminarAlumnoService(this.alumno.idAlumno);
+    //this.MySql.EliminarAlumnoService(this.alumno.idAlumno);
+    this.alerts2.EliminarAlumnoConfirmAlert(this.alumno.idAlumno);
     // TODO Alumno eliminado con exito o fallo, volver atras (cerrar modal)
-
+    this.dismissModal();
   }
 
   EditarAlumno(){

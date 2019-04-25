@@ -23,6 +23,7 @@ export class MySQLService {
   AlumnosArray;
   AlumnosReceibed = false;
   modal;
+  boolEliminarAlumno = false;
 
   constructor(public http: HttpClient, public injector: Injector) { 
     this.alertService = injector.get(AlertService);
@@ -163,11 +164,14 @@ export class MySQLService {
     return arr;
   };
 
+  
+  public BoolEliminarAlumno(){
+    this.boolEliminarAlumno = true;
+  }
+
   EliminarAlumnoService(idAlumno){
     //TODO Eliminar alumno seleccionado
     var ipEliminarAlumno = this.ipCarpeta + "eliminarAlumno.php";
-    // this.alertService.present(); // TODO Alert Alumno eliminado=
-
     this.http.post<string>(ipEliminarAlumno,idAlumno)
     .subscribe((data : any) =>
     {
@@ -185,6 +189,7 @@ export class MySQLService {
       //this.alertService.AltaAlumnoError();
       
     });
+    
   }
   
   
