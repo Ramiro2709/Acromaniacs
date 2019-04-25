@@ -56,12 +56,10 @@ export class ModalSearchAlumnosPage implements OnInit {
 
   
   crearAlumnos(){
-    
     this.TodosAlumnos = this.MySql.AlumnosArray;
-
     //console.log(Object.keys(this.MySql.AlumnosArray).length);
     //TODO: lengh ?
-    for(let i=0;i<(Object.keys(this.MySql.AlumnosArray).length - 1);i++){
+    for(let i=0;i<(Object.keys(this.MySql.AlumnosArray).length);i++){
       //console.log(this.MySql.AlumnosArray[i]['nombre']);
       var mysqlNombre:any;
       var mysqlApellido:any;
@@ -72,7 +70,6 @@ export class ModalSearchAlumnosPage implements OnInit {
       //console.log(mysqlNombre);
       //console.log(mysqlApellido);
       //console.log(this.TodosAlumnos +" "+i);
-
 
       this.TodosAlumnos[i]['NombreApellido'] = mysqlNombre + " " + mysqlApellido;
       //this.TodosAlumnos[i]['idAlumno'] = this.MySql.AlumnosArray[i]['idAlumno'];
@@ -96,7 +93,6 @@ export class ModalSearchAlumnosPage implements OnInit {
       
     }
     //console.log("TodosAlumnos"+this.TodosAlumnos[26]['IdClaseAlumno']);
-    
   }
 
   initializeAlumnos(){
@@ -114,25 +110,21 @@ export class ModalSearchAlumnosPage implements OnInit {
     */
     this.alumnos = this.TodosAlumnos;
     //this.alumnos = this.MySql.AlumnosArray;
-    //console.log(this.alumnos);
+    console.log(this.alumnos);
     //console.log(this.alumnos[1]['nombre']);
-    
   }
 
-  
   getAlumnos(ev: any) {
     // Reset items back to all of the items
     //this.crearAlumnos()
     this.initializeAlumnos();
-
     // set val to the value of the searchbar
     const val = ev.target.value;
-
     // if the value is an empty string don't filter the items
     if (val && val.trim() != '') {
       this.alumnos = this.alumnos.filter((item) => {
-        //console.log(item['idAlumno']);
-        return (item['nombreApellido'].toLowerCase().indexOf(val.toLowerCase()) > -1);
+        //console.log(item['NombreApellido'].toLowerCase() + " ");
+        return (item['NombreApellido'].toLowerCase().indexOf(val.toLowerCase()) > -1);
       })
     }
   }

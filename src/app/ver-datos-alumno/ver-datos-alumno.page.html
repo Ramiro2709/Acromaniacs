@@ -1,10 +1,21 @@
 <ion-header>
   <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-back-button defaultHref="/tabs/tab2/ver-alumnos" (click)="dismissModal()"></ion-back-button>
+        </ion-buttons>
     <ion-title>verDatosAlumno</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
+
+  <button ion-button full class="selectAlumno" text-center margin (click)="EditarAlumno()">
+    Editar 
+  </button>
+
+  <button ion-button full class="selectAlumno" text-center margin (click)="EliminarAlumno()">
+    Eliminar
+  </button>
 
   <h2>Nombre: {{alumno.nombre}}</h2> <!-- Nombre -->
   <h2>Apellido: {{alumno.apellido}}</h2> <!-- Apellido -->

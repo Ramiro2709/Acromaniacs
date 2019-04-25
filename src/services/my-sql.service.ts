@@ -116,7 +116,8 @@ export class MySQLService {
       //console.log("Subscribe Post");
       var AlumnosObtenidos = data;
 
-      var lenght = AlumnosObtenidos['lenght'];
+      //var lenght = AlumnosObtenidos['lenght'];
+      //console.log(lenght);
       //Agregar comprobantes
       this.AlumnosArray = AlumnosObtenidos;
       //console.log(AlumnosObtenidos)
@@ -154,6 +155,7 @@ export class MySQLService {
   objectToArray = function(obj) {
     var arr =[];
     for(let o in obj) {
+      //console.log(o);
       if (obj.hasOwnProperty(o)) {
         arr.push(obj[o]);
       }
@@ -161,6 +163,29 @@ export class MySQLService {
     return arr;
   };
 
+  EliminarAlumnoService(idAlumno){
+    //TODO Eliminar alumno seleccionado
+    var ipEliminarAlumno = this.ipCarpeta + "eliminarAlumno.php";
+    // this.alertService.present(); // TODO Alert Alumno eliminado=
 
+    this.http.post<string>(ipEliminarAlumno,idAlumno)
+    .subscribe((data : any) =>
+    {
+      //console.log("Subscribe Post");
+      this.GetAlumnos(); //Actualiza alumnos
+      //this.alertService.dismiss();
+      //this.alertService.AltaAlumnoExitosa();
+    },
+    (error : any) =>
+    {
+      //console.log("Error POST");
+      this.GetAlumnos();
+      //console.log(error);
+      //this.alertService.dismiss();
+      //this.alertService.AltaAlumnoError();
+      
+    });
+  }
+  
   
 }

@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Injector } from '@angular/core';
 
 import {PDFMakerService} from '../../services/pdfmaker.service';
+import {MySQLService} from '../../services/my-sql.service';
+
+import {ModalController, AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-ver-datos-alumno',
@@ -20,11 +23,23 @@ export class VerDatosAlumnoPage implements OnInit {
   viernesHidden;
   sabadoHidden;
 
-  constructor(private PDF: PDFMakerService) { }
+  MySql;
+
+  constructor(private PDF: PDFMakerService, public injector: Injector, private modalController: ModalController) {
+    this.MySql = this.injector.get(MySQLService);
+   }
 
   ngOnInit() {
     this.MostrarClases();
     this.arrayComprobantes = this.objectToArray(this.alumno["Comprobante"]);
+    this.arrayComprobantes.forEach(element => {
+      if (element.Recargo == 0){
+        element.Recargo = "No";
+      } else if (element.Recargo == 1){
+        element.Recargo = "Si";
+      }
+      
+    });
     console.log(this.alumno);
     //this.martesHidden = true;
     //console.log(this.alumno["Comprobante"]);
@@ -65,6 +80,21 @@ export class VerDatosAlumnoPage implements OnInit {
     }
     console.log(this.arrayClasesFiltrado);
     */
+  }
+
+  EliminarAlumno(){
+    console.log(this.alumno.idAlumno);
+    this.MySql.EliminarAlumnoService(this.alumno.idAlumno);
+    // TODO Alumno eliminado con exito o fallo, volver atras (cerrar modal)
+
+  }
+
+  EditarAlumno(){
+    
+  }
+
+  public dismissModal(){
+    this.modalController.dismiss();
   }
 
   //TODO: Que salga alerta PDF generado exitosamente ?

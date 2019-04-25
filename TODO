@@ -17,8 +17,6 @@
 
 * Formulario Comprobantes:
     
-    - *** Arreglar buscador
-
     - Mes a abonar predefinido sea el ultimo sin pagar, al mostrar la lista muestre en diferentes
       colores meses pagados y los no pagados
 
@@ -31,9 +29,7 @@
     - Si otro celular carga alumno, no se le actualiza al resto, arreglar, tratar ver como hacer que  
     se actualizen los alumnos cada vez que se abre el modal y esperen al subscribe
 
-    - en ver recargo cambiar 0 por "No"
-
-    - BUG: Al mostrar alumnos aparece un cuadro vacio al ultimo (elemento demas mysql.arrayAlumnos ?)
+    
 
 
 -? Cambiar campo string "MesAbonado" a int de meses
@@ -44,6 +40,9 @@
 
 * Terminados
 
+--------------------------------- en ver recargo cambiar 0 por "No"
+--------------------------- BUG: Al mostrar alumnos aparece un cuadro vacio al ultimo (elemento demas mysql.arrayAlumnos ?)
+---------------------------------------- *** Arreglar buscador
 ----------------------------------- Hacer funcional recargo, 
 ------------------------ Actualizar comprobantes del alumno cuando se carga uno
 -------------------- Quitar id comprobante
