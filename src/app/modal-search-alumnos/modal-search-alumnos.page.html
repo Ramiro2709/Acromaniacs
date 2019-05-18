@@ -12,7 +12,18 @@
       </button>
     <ion-searchbar placeholder="Alumno" (ionInput)="getAlumnos($event)"></ion-searchbar>
   </ion-item>
-  <!-- List con botones de alumnos generados      *ngFor="let key of alumnos.keys(objs)"  {{key}} ; {{objs[key] | json}}-->
+  Filtro:
+  <!-- Selector filtro segun clases -->
+    <ion-select value="Todos" class="form_input"  name="filtro" [interfaceOptions]="customPopoverOptions" interface="popover" placeholder="Filtro" (ionChange)="FiltrarAlumnosClases($event)">
+      <ion-select-option value="Todos">Todos</ion-select-option>
+      <ion-select-option value="Lunes">Lunes</ion-select-option>
+      <ion-select-option value="Martes">Martes</ion-select-option>
+      <ion-select-option value="Miercoles">Miercoles</ion-select-option>
+      <ion-select-option value="Jueves">Jueves</ion-select-option>
+      <ion-select-option value="Viernes">Viernes</ion-select-option>
+      <ion-select-option value="Sabado">Sabado</ion-select-option>
+    </ion-select>
+  <!-- List con botones de alumnos generados  -->
   <ion-list>
     <button  *ngFor="let alumno of alumnos" ion-button full (click)="setAlumno(alumno)" class="selectAlumno" text-center margin>
         {{alumno.NombreApellido}}

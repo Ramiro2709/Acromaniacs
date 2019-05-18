@@ -10,20 +10,25 @@
 <ion-content padding>
 
   <ion-list>
-    <ion-label class="nombre_campo">Lunes:</ion-label>
-      <ion-item *ngFor="let alumno of alumnos">
-        <button ion-button full class="selectAlumno" text-center margin (click)="VerDatosAlumno(alumno)">
-            {{alumno.nombre}}
-        </button>
+    <!-- Selector para filtar los alumnos segun clase que asisten -->
+    Filtro:
+    <ion-select value="Todos" class="form_input" [(ngModel)]="filtroAlumnos" name="filtro" [interfaceOptions]="customPopoverOptions" interface="popover" placeholder="Filtro" (ionChange)="FiltrarAlumnosClases()">
+      <ion-select-option value="Todos">Todos</ion-select-option>
+      <ion-select-option value="Lunes">Lunes</ion-select-option>
+      <ion-select-option value="Martes">Martes</ion-select-option>
+      <ion-select-option value="Miercoles">Miercoles</ion-select-option>
+      <ion-select-option value="Jueves">Jueves</ion-select-option>
+      <ion-select-option value="Viernes">Viernes</ion-select-option>
+      <ion-select-option value="Sabado">Sabado</ion-select-option>
+    </ion-select>
+
+    <!-- Alumnos a mostrar -->
+    <ion-label class="nombre_campo">Alumnos:</ion-label>
+    <ion-item *ngFor="let alumno of alumnos">
+      <button ion-button full class="selectAlumno" text-center margin (click)="VerDatosAlumno(alumno)">
+          {{alumno.NombreApellido}}
+      </button>
     </ion-item>
-    <!--
-    <ion-label class="nombre_campo">Martes:</ion-label>
-    <ion-item *ngFor="let alumnoMartes of alumnosMartes">
-        <button ion-button full class="selectAlumno" text-center margin>
-            {{alumnoMartes.nombre}}
-        </button>
-    </ion-item>
-    -->
   </ion-list>
 
 </ion-content>

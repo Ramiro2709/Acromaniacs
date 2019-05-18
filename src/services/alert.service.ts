@@ -7,13 +7,16 @@ import {PDFMakerService} from './pdfmaker.service';
 import { CrearAlumnoPage } from 'src/app/crear-alumno/crear-alumno.page';
 import { ModalSearchAlumnosPage } from 'src/app/modal-search-alumnos/modal-search-alumnos.page';
 
+import { Router } from '@angular/router';
+
 @Injectable({
   providedIn: 'root'
 })
 export class AlertService {
   pDFMakerService : any;
   mySQL : any;
-  constructor(private alertController: AlertController, public injector: Injector, public loadingCtrl:LoadingController, public modalCtrl: ModalController) { 
+  constructor(private alertController: AlertController, public injector: Injector, public loadingCtrl:LoadingController, public modalCtrl: ModalController,
+    private router: Router) { 
     
     this.IniciarInjectores();
   }
@@ -107,17 +110,36 @@ export class AlertService {
     await alert.present();
   }
 
-  async GetAlumnosError(){
+  async EditarAlumno(exito){
+    if (exito){
+      var header = 'Exito';
+      var message = 'Alumno editado exitosamente';
+    } else if (!exito){
+      var header = 'ERROR';
+      var message = 'Error al editar datos. No hay conexion con el servidor';
+    }
+    
     const alert = await this.alertController.create({
-      header: 'Error',
-      message: 'Error al cargar alumnos. No hay conexion con el servidor o no hay datos',
+      header: header,
+      message: message,
       buttons: [
         {
           text: 'OK',
           handler: () => {
+            this.router.navigate(['/tabs/tab2/ver-alumnos']);
           }
         }
-      ] 
+      ]
+    });
+    await alert.present();
+    
+  }
+
+  async GetAlumnosError(){
+    const alert = await this.alertController.create({
+      header: 'Error',
+      message: 'Error al cargar alumnos. No hay conexion con el servidor o no hay datos',
+       
     });
     return await alert.present();
   }

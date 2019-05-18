@@ -1,22 +1,27 @@
+Hecho: Eliminar tab3
+Por hacer: TODO filtar alumnos por clases
 
-* Iniciar en Tab3 (menu), cargar alumnos cuando inicia menu
 
-*+- agregar un menu principal (con tab en el medio) con 3 cosos (Crear comprobante, ver alumno, crear alumno)
+- Cambiar "Crear alumno" por "Agregar"
+
+*? Iniciar en Tab3 (menu), cargar alumnos cuando inicia menu
+
+*+-? agregar un menu principal (con tab en el medio) con 3 cosos (Crear comprobante, ver alumno, crear alumno)
 
 * Arreglar como se actualizan los datos, teniendo en cuenta que varios usuarios lo van a usar
 
 * Vista Alumnos:
 
-    - *muestre todos alumnos, filtros que muestre los alumnos que van tal dia
+    - **** muestre todos alumnos, filtros que muestre los alumnos que van tal dia
 
-    - ***Vista de Alumnos, poder editarlos, eliminarlos, ----ver sus meses pagados
+    -? Al crear alumno, que se cierre la pestaña o se eliminen los datos para ingresar uno nuevo
 
-    - Al crear alumno, que se cierre la pestaña o se eliminen los datos para ingresar uno nuevo
-
-    - ** Agregar buscador
+    - **** Agregar buscador
 
 * Formulario Comprobantes:
     
+    
+
     - Mes a abonar predefinido sea el ultimo sin pagar, al mostrar la lista muestre en diferentes
       colores meses pagados y los no pagados
 
@@ -26,7 +31,7 @@
 
     - Actualizar cuando se abre vista de alumnos
 
-    - Si otro celular carga alumno, no se le actualiza al resto, arreglar, tratar ver como hacer que  
+    - ** Si otro celular carga alumno, no se le actualiza al resto, arreglar, tratar ver como hacer que  
     se actualizen los alumnos cada vez que se abre el modal y esperen al subscribe
 
     
@@ -40,6 +45,8 @@
 
 * Terminados
 
+-------------- **** FIXMEhecho Se puede crear comprobantes del mismo mes
+----------------------- ***Vista de Alumnos, poder editarlos, eliminarlos, ----ver sus meses pagados
 --------------------------------- en ver recargo cambiar 0 por "No"
 --------------------------- BUG: Al mostrar alumnos aparece un cuadro vacio al ultimo (elemento demas mysql.arrayAlumnos ?)
 ---------------------------------------- *** Arreglar buscador
@@ -72,3 +79,13 @@
 ---------------------------------------------------------- Seleccion de alumno
 
 ----------------------------------------------------------------- Agregar clases a la base de datos y al input de creacion de alumnos
+
+Hecho: Al eliminar alumno se actualiza lista
+Haciendo:
+Por Hacer: Editar Alumno
+
+Hecho: Datos de alumno a editar se asignan a formulario de crear alumno
+Por Hacer: Si esta editando, que envie query de modificacion no de alta, vaciar objeto con alumno a editar despues
+
+Hecho: Alerta y redireccion de alumno editado
+Por hacer: Eliminar tab3, filtar alumnos por clases

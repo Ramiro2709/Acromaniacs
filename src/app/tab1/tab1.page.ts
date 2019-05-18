@@ -121,20 +121,21 @@ export class Tab1Page {
     var abonadoCorrecto = true;
     // ++ Revisa el array de alumnos
     //console.log(Object.keys(this.MySql.AlumnosArray).length);
-    for (let i=0;i < (Object.keys(this.MySql.AlumnosArray).length - 1) ;i++){
+    for (let i=0;i < (Object.keys(this.MySql.AlumnosArray).length) ;i++){
       //console.log(this.MySql.AlumnosArray[i]['idAlumno']);
       // ++ Si el id del alumno es igual al del formulario
       if (this.MySql.AlumnosArray[i]['idAlumno'] == this.form.idAlumno){
         //console.log(this.MySql.AlumnosArray[i]['idAlumno']);
         // ++ Si no tiene comprobantes break
         if (!this.MySql.AlumnosArray[i]['Comprobante']){
+          console.log("No tiene comprobantes, break");
           break;
         }
-        // ++ Revisa todos sus comprobantes
+        // NOTE ++ Revisa todos sus comprobantes
         console.log((Object.keys(this.MySql.AlumnosArray[i]['Comprobante']).length));
         for (let y=0; y < (Object.keys(this.MySql.AlumnosArray[i]['Comprobante']).length); y++){
           //console.log(this.MySql.AlumnosArray[i]['Comprobante']);
-          // ++ Si alguno es del mismo mes y año que el form
+          // NOTE ++ Si alguno es del mismo mes y año que el form
           //console.log(this.MySql.AlumnosArray[i]['Comprobante'][y]['MesAbonado']+ " == "+ this.form.mes +" ; "+ this.MySql.AlumnosArray[i]['Comprobante'][y]['AnioAbonado'] + " == "+ this.form.anioAbonado);
           if (this.MySql.AlumnosArray[i]['Comprobante'][y]['MesAbonado'] == this.form.mes && this.MySql.AlumnosArray[i]['Comprobante'][y]['AnioAbonado'] == this.form.anioAbonado){
             abonadoCorrecto = false;
@@ -182,9 +183,10 @@ export class Tab1Page {
   }
 
   CambioMesAbonado(){
-    // NOTE: Si el mes seleccionado, es mayor al mes actual, y el año es mayor o igual, se aplica recargo
+    // NOTE: Si el mes seleccionado, es mayor al menor actual, y el año es menor o igual, se aplica recargo
+    // TODO Dar 1 o 2 meses sin recargo?
     this.MesStringToNumber();
-    if (this.mesFormToNum > this.mm && Number(this.form.anioAbonado) == this.yyyy || Number(this.form.anioAbonado) > this.yyyy){
+    if (this.mesFormToNum < this.mm && Number(this.form.anioAbonado) == this.yyyy || Number(this.form.anioAbonado) < this.yyyy){
       //console.log("Se aplica recargo");
       this.form.recargo = "Si";
     } else {

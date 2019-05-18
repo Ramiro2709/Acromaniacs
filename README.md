@@ -16,18 +16,17 @@
 * Paginas: src/app
 
   + tabs: Pagina padre de las tabs
-    - tabs.router.module.ts: Controla direcciones de tabs
+    - tabs.router.module.ts: Controla la navegacion de las paginas
 
   + tab1: formulario de comprobantes
-    tab1.page.ts: Manda datos al servicio mysql, carga modal
     - modal-search-alumnos: modal con seleccion y buscador de alumnos
 
   + tab2: Menu de alumnos
    - crear-alumno: formulario para crear alumno
-   - ver-alumnos: Vista de los alumnos y sus comprobantes (por hacer)
-    - ver-datos-alumno: (por hacer)
+   - ver-alumnos: Vista de los alumnos, pueden ser filtrados depende los dias que asisten
+     - ver-datos-alumno: Vista de datos, comprobantes y clases de alumno, los elimina, y edita utilizando la pagina crear-alumno
 
-  + tab3: Menu principal
+  + (Eliminada?) tab3: Menu principal
     Redirecciona a las otras paginas
     
 * Estilos

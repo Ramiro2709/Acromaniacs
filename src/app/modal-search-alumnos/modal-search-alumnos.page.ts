@@ -18,6 +18,7 @@ export class ModalSearchAlumnosPage implements OnInit {
   MySql;
   Alert;
   error;
+  filtroAlumnos;
 
   constructor(navParams: NavParams, private alertController: AlertController, private modalController: ModalController, public injector: Injector) { 
     this.MySql = injector.get(MySQLService);
@@ -185,6 +186,21 @@ export class ModalSearchAlumnosPage implements OnInit {
    } 
 
    return Monto;
+
+  }
+
+  FiltrarAlumnosClases(filtroAlumnos) {
+    // Diseño: Entrada: Array de alumnos entero, valor a filtrar ; Salida: Array filtrado
+    // Analisis: for recorre elementos, si [i]['Clases'] != 'false', lo agrega al array
+    console.log(filtroAlumnos.target.value);
+    this.alumnos = new Array();
+    var horario = "horario" + filtroAlumnos.target.value;
+    this.TodosAlumnos.forEach(element => {
+      if (element['Clases'][horario] != "false"){
+        this.alumnos.push(element);
+      }
+    });
+
 
   }
 

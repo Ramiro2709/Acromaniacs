@@ -3,6 +3,7 @@ import {ModalController } from '@ionic/angular';
 
 import {MySQLService} from '../../services/my-sql.service';
 import {AlertService} from '../../services/alert.service';
+import {GeneralServiceService} from '../../services/general-service.service';
 
 import {VerDatosAlumnoPage} from '../ver-datos-alumno/ver-datos-alumno.page';
 
@@ -16,14 +17,26 @@ export class VerAlumnosPage implements OnInit {
   alumnos: string[];
   alumnosMartes: string[];
   alumnosLunes : string[];
-  constructor(public injector: Injector, private modalController: ModalController) { 
+  filtroAlumnos;
+  todosAlumnos;
+
+  constructor(public injector: Injector, private modalController: ModalController, private generalService: GeneralServiceService) { 
     this.Alerts = injector.get(AlertService);
+
+    // We subscribe to the observable to be notified when
+      // the data is ready
+      this.generalService.observable.subscribe(() => {
+        //Hace cosas
+        console.log("Recibio Observable");
+        this.IniciarAlumnos();
+      });
   }
 
   //Se carga cuando entra la vista
   ionViewWillEnter(){
     console.log("Entro vista");
     this.IniciarAlumnos();
+    this.FiltrarAlumnosClases()
   }
 
   ngOnInit() {
@@ -35,7 +48,8 @@ export class VerAlumnosPage implements OnInit {
     
     this.IniciarAlumnos();
     
-    console.log(this.alumnos[0]);
+    
+    //console.log(this.alumnos[0]);
 
     /*
     this.alumnosLunes = new Array();
@@ -56,9 +70,58 @@ export class VerAlumnosPage implements OnInit {
   }
 
   public IniciarAlumnos(){
-    
-    this.alumnos = this.MySql.AlumnosArray;
-    console.log(this.alumnos);
+    this.todosAlumnos = new Array();
+    this.alumnos = new Array();
+    this.todosAlumnos = this.MySql.AlumnosArray;
+    console.log(this.todosAlumnos);
+    for(let i=0;i<(Object.keys(this.MySql.AlumnosArray).length);i++){
+      var mysqlNombre:any;
+      var mysqlApellido:any;
+      if (this.MySql.AlumnosArray[i]['nombre'] == null){mysqlNombre = "null";}
+      else {mysqlNombre = this.MySql.AlumnosArray[i]['nombre'];}
+      if (this.MySql.AlumnosArray[i]['apellido'] == null){mysqlApellido = "null";}
+      else {mysqlApellido = this.MySql.AlumnosArray[i]['apellido'];}
+      //console.log(this.todosAlumnos[i]);
+      this.todosAlumnos[i]['NombreApellido'] = mysqlNombre + " " + mysqlApellido;
+    }
+  }
+
+  ReiniciarAlumnos(){
+    this.alumnos = this.todosAlumnos;
+  }
+
+  FiltrarAlumnosClases() {
+    // Diseño: Entrada: Array de alumnos entero, valor a filtrar ; Salida: Array filtrado
+    // Analisis: for recorre elementos, si [i]['Clases'] != 'false', lo agrega al array
+    this.alumnos = new Array();
+    var horario = "horario" + this.filtroAlumnos;
+    this.todosAlumnos.forEach(element => {
+      //console.log(element);
+      
+      /*
+      switch (this.filtroAlumnos){
+        case "Lunes":{
+          //console.log(element['Clases']['horarioLunes'])
+          if (element['Clases']['horarioLunes'] != "false"){
+            this.alumnos.push(element);
+          }
+          break;
+        }
+        case "Martes":{
+          //console.log(element['Clases']['horarioLunes'])
+          if (element['Clases']['horarioMartes'] != "false"){
+            this.alumnos.push(element);
+          }
+          break;
+        }
+      }
+      */
+      if (element['Clases'][horario] != "false"){
+        this.alumnos.push(element);
+      }
+    });
+
+
   }
 
   async VerDatosAlumno(alumno) {
@@ -69,9 +132,10 @@ export class VerAlumnosPage implements OnInit {
     });
     await modal.present();
     await modal.onDidDismiss(); //Cuando el modal se cierra
-    //TODO Al confirmar alert recargar alumnos, Ver Obserbables
+    //TOD Hecho Al confirmar alert recargar alumnos, Ver Obserbables
     //this.IniciarAlumnos();
     //console.log("On did dismiss");
   }
+
 
 }

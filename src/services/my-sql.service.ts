@@ -11,6 +11,8 @@ import { forkJoin } from 'rxjs';
 //import 'rxjs/add/operator/catch';
 //import 'rxjs/add/operator/map';
 
+
+
 @Injectable({
   providedIn: 'root',
 
@@ -97,6 +99,33 @@ export class MySQLService {
       
     });
   }
+
+  EditarAlumno(form){
+    // TODO Terminar php editar
+    form = JSON.stringify(form);
+    var ipAltaDatos = this.ipCarpeta + "editarAlumnos.php";
+    this.alertService.present();
+
+    this.http.post<string>(ipAltaDatos,form)
+    .subscribe((data : any) =>
+    {
+      //console.log("Subscribe Post");
+      this.GetAlumnos();
+      this.alertService.dismiss();
+      this.alertService.EditarAlumno(true);
+    },
+    (error : any) =>
+    {
+      //console.log("Error POST");
+      this.GetAlumnos();
+      console.log(error);
+      this.alertService.dismiss();
+      this.alertService.EditarAlumno(false);
+      
+    });
+  }
+
+
   /*
   var lenght = data['lenght'];
       for(let i=0;i<lenght;i++){

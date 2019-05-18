@@ -1,5 +1,6 @@
 import { Injectable, Injector } from '@angular/core';
 import {MySQLService} from './my-sql.service';
+import {GeneralServiceService} from './general-service.service';
 
 import { AlertController,LoadingController, ModalController} from '@ionic/angular';
 
@@ -8,7 +9,7 @@ import { AlertController,LoadingController, ModalController} from '@ionic/angula
 })
 export class AlertToMysqlServiceService {
   mySQL;
-  constructor(public injector: Injector,private alertController: AlertController) { 
+  constructor(public injector: Injector,private alertController: AlertController,private generalService: GeneralServiceService) { 
     this.mySQL = this.injector.get(MySQLService);
   }
   async EliminarAlumnoConfirmAlert(idAlumno){
@@ -28,6 +29,7 @@ export class AlertToMysqlServiceService {
             
             //console.log(this.mySQL)
             this.mySQL.EliminarAlumnoService(idAlumno); 
+            this.generalService.UpdateDeletedAlumnos();
           }
         }
       ] 

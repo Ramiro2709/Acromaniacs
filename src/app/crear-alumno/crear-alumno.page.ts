@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 
 import {MySQLService} from '../../services/my-sql.service';
 import {AlertService} from '../../services/alert.service';
+import {GeneralServiceService} from '../../services/general-service.service';
+
+
 
 @Component({
   selector: 'app-crear-alumno',
@@ -20,6 +23,7 @@ export class CrearAlumnoPage implements OnInit {
     horarioViernes: null,
     horarioSabado: null,
     horarioDomingo: null,
+    editandoAlumnoID: null
   };
 
   radios = {
@@ -40,7 +44,22 @@ export class CrearAlumnoPage implements OnInit {
   horarioSabado={disabled:true};
   horarioDomingo={disabled:true};
 
-  constructor(private MySql: MySQLService,private alertService: AlertService) { }
+  //EditandoIdAlumno;
+
+  constructor(
+    private MySql: MySQLService,
+    private alertService: AlertService,
+    private generalService: GeneralServiceService
+    ) {
+    console.log("Crear Alumno Page");
+    //console.log(this.generalService.EditandoAlumno);
+    // TODO Si esta editando, que envie query de modificacion no de alta, vaciar objeto con alumno a editar despues
+    //console.log(this.generalService.EditandoAlumno);
+    if (this.generalService.EditandoAlumno){
+      this.EditandoAlumno();
+    }
+    
+   }
 
   ngOnInit() {
   }
@@ -134,7 +153,58 @@ export class CrearAlumnoPage implements OnInit {
       }
     }
     console.log(this.form);
-    this.MySql.AltaAlumno(this.form);
+
+    if (!this.generalService.EditandoAlumno){
+      this.MySql.AltaAlumno(this.form);
+    } else {
+      console.log(this.form);
+      this.MySql.EditarAlumno(this.form);
+      
+    }
+  }
+
+  EditandoAlumno(){
+    this.form.editandoAlumnoID = this.generalService.EditandoAlumno["idAlumno"];
+    this.form.name = this.generalService.EditandoAlumno["nombre"];
+      //console.log(this.form.name);
+      this.form.apellido = this.generalService.EditandoAlumno["apellido"];
+      if (this.generalService.EditandoAlumno["Clases"]["horarioLunes"] != "false"){
+        this.radios.lunes = "true";
+        this.horarioLunes={disabled:false};
+        this.form.horarioLunes = this.generalService.EditandoAlumno["Clases"]["horarioLunes"];
+      }
+      if (this.generalService.EditandoAlumno["Clases"]["horarioMartes"] != "false"){
+        this.radios.martes = "true";
+        this.horarioMartes={disabled:false};
+        this.form.horarioMartes = this.generalService.EditandoAlumno["Clases"]["horarioMartes"];
+      }
+      if (this.generalService.EditandoAlumno["Clases"]["horarioMiercoles"] != "false"){
+        this.radios.miercoles = "true";
+        this.horarioMiercoles={disabled:false};
+        this.form.horarioMiercoles = this.generalService.EditandoAlumno["Clases"]["horarioMiercoles"];
+      }
+      if (this.generalService.EditandoAlumno["Clases"]["horarioJueves"] != "false"){
+        this.radios.jueves = "true";
+        this.horarioJueves={disabled:false};
+        this.form.horarioJueves = this.generalService.EditandoAlumno["Clases"]["horarioJueves"];
+      }
+      if (this.generalService.EditandoAlumno["Clases"]["horarioViernes"] != "false"){
+        this.radios.viernes = "true";
+        this.horarioViernes={disabled:false};
+        this.form.horarioViernes = this.generalService.EditandoAlumno["Clases"]["horarioViernes"];
+      }
+      if (this.generalService.EditandoAlumno["Clases"]["horarioSabado"] != "false"){
+        this.radios.sabado = "true";
+        this.horarioSabado={disabled:false};
+        this.form.horarioSabado = this.generalService.EditandoAlumno["Clases"]["horarioSabado"];
+      }
+  }
+
+  ionViewWillLeave(){
+    console.log("Salio");
+    this.generalService.EditandoAlumno = undefined;
+    //console.log(this.generalService.EditandoAlumno);
+
   }
 
 }
